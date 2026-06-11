@@ -180,7 +180,11 @@ const config = {
   plugins: [
     ['./src/plugins/docusaurus-plugin-virtual-files', { rootDir: '.integrationBuilderCache' }],
     './src/plugins/docusaurus-plugin-tutorials',
-    'docusaurus-plugin-sass',
+    ['docusaurus-plugin-sass', {
+      sassOptions: {
+        silenceDeprecations: ['legacy-js-api', 'import'],
+      },
+    }],
     './src/plugins/mm-scss-utils',
     [
       '@docusaurus/plugin-content-docs',

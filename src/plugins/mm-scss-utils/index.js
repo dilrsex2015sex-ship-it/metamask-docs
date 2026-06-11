@@ -15,6 +15,7 @@ module.exports = function (context, options) {
                   options: {
                     sassOptions: {
                       includePaths: [path.resolve(context.siteDir, 'src/scss')],
+                      silenceDeprecations: ['legacy-js-api', 'import'],
                     },
                     additionalData: `@use "sass:math"; @import "${path.resolve(context.siteDir, 'src/scss/utils/global-import')}";`,
                   },
