@@ -1,0 +1,17 @@
+{
+  "extends": ["config:base"],
+  "branchPrefix": "renovate/",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major dependency updates",
+      "automerge": false
+    }
+  ],
+  "schedule": ["at any time"],
+  "labels": ["dependencies"]
+}
