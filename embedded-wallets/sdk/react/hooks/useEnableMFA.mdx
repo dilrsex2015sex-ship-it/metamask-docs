@@ -6,6 +6,12 @@ description: '@web3auth/modal React Hooks useEnableMFA | Embedded Wallets'
 
 Hook to enable Multi-Factor Authentication (MFA) using Web3Auth.
 
+:::info
+
+Please note that this hook doesn't work for external wallet logins. It only works for social login embedded wallets.
+
+:::
+
 ### Import
 
 ```tsx
@@ -31,25 +37,25 @@ function EnableMFAButton() {
 }
 ```
 
-### Return Type
+### Return type
 
 ```tsx
 import { type IUseEnableMFA } from '@web3auth/modal/react'
 ```
 
-#### loading
+#### `loading`
 
 `boolean`
 
 Whether the MFA enabling process is in progress.
 
-#### error
+#### `error`
 
 `Web3AuthError | null`
 
 Error that occurred during the MFA enabling process.
 
-#### enableMFA
+#### `enableMFA`
 
 `<T>(params?: T) => Promise<void>`
 

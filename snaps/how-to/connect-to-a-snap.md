@@ -15,14 +15,13 @@ This is possible because Snaps can expose a [custom JSON-RPC API](../learn/about
 ## Detect wallet
 
 To connect to a Snap, dapps must first detect MetaMask in the user's browser.
-See the Wallet API documentation on [how to connect to the MetaMask extension](/wallet/how-to/connect-extension).
 
 ### Detect MetaMask Flask
 
 When developing your Snap, you might need to require
 [MetaMask Flask](../get-started/install-flask.md) in your dapp.
 We recommend detecting MetaMask Flask using the
-[multi-wallet detection mechanism](/wallet/concepts/wallet-interoperability) specified by EIP-6963.
+multi-wallet detection mechanism specified by EIP-6963.
 Alternatively, you can use the `window.ethereum` injected provider, but this might fail if the user
 is running multiple wallet extensions simultaneously.
 
@@ -32,20 +31,20 @@ To detect MetaMask Flask, you can add the following to `window.onload`:
 <TabItem value="EIP-6963 example">
 
 ```js title="index.js"
-window.addEventListener("eip6963:announceProvider", (event) => {
+window.addEventListener('eip6963:announceProvider', event => {
   /* event.detail contains the discovered provider interface. */
   const providerDetail = event.detail
 
   /* providerDetail.info.rdns is the best way to distinguish a wallet extension. */
-  if (providerDetail.info.rdns === "io.metamask.flask") {
-    console.log("MetaMask Flask successfully detected!")
+  if (providerDetail.info.rdns === 'io.metamask.flask') {
+    console.log('MetaMask Flask successfully detected!')
     // Now you can use Snaps!
   } else {
-    console.error("Please install MetaMask Flask!")
+    console.error('Please install MetaMask Flask!')
   }
 })
 
-window.dispatchEvent(new Event("eip6963:requestProvider"))
+window.dispatchEvent(new Event('eip6963:requestProvider'))
 ```
 
 </TabItem>
@@ -54,15 +53,13 @@ window.dispatchEvent(new Event("eip6963:requestProvider"))
 ```js title="index.js"
 const provider = window.ethereum
 
-const isFlask = (
-  await provider?.request({ method: "web3_clientVersion" })
-)?.includes("flask")
+const isFlask = (await provider?.request({ method: 'web3_clientVersion' }))?.includes('flask')
 
 if (provider && isFlask) {
-  console.log("MetaMask Flask successfully detected!")
+  console.log('MetaMask Flask successfully detected!')
   // Now you can use Snaps!
 } else {
-  console.error("Please install MetaMask Flask!", error)
+  console.error('Please install MetaMask Flask!', error)
 }
 ```
 
@@ -71,7 +68,7 @@ if (provider && isFlask) {
 
 ## Connect to a Snap
 
-Connect to a Snap by calling the [`wallet_requestSnaps`](../reference/wallet-api-for-snaps.md#wallet_requestsnaps)
+Connect to a Snap by calling the [`wallet_requestSnaps`](../reference/snaps-api/wallet_requestsnaps.mdx)
 method from your dapp.
 If a user doesn't have the Snap installed in their MetaMask wallet, MetaMask prompts the user to
 install the Snap.
@@ -118,7 +115,7 @@ new installation of the Snap, but the user won't see a confirmation pop-up askin
 ## Determine whether a Snap is installed
 
 Determine whether a Snap is installed by calling the
-[`wallet_getSnaps`](../reference/wallet-api-for-snaps.md#wallet_getsnaps) method from your dapp.
+[`wallet_getSnaps`](../reference/snaps-api/wallet_getsnaps.mdx) method from your dapp.
 This method returns a list of only those Snaps that are connected to your current dapp.
 
 The response is in the form of an object keyed by the ID of the Snap.
@@ -133,10 +130,10 @@ The following example verifies whether a Snap with ID `npm:super-snap` is instal
 
 ```ts title="index.ts"
 const snaps = await ethereum.request({
-  method: "wallet_getSnaps",
+  method: 'wallet_getSnaps',
 })
 
-const isMySnapInstalled = Object.keys(snaps).includes("npm:super-snap")
+const isMySnapInstalled = Object.keys(snaps).includes('npm:super-snap')
 ```
 
 If you need to work with a specific version of a Snap, you can instead iterate over
@@ -155,7 +152,7 @@ to work with that version.
 At any time, a user can open their MetaMask Snaps settings menu and see all the dapps connected to a Snap.
 From that menu they can revoke a dapp connection.
 If your dapp loses the connection to a Snap, you can reconnect by calling
-[`wallet_requestSnaps`](../reference/wallet-api-for-snaps.md#wallet_requestsnaps).
+[`wallet_requestSnaps`](../reference/snaps-api/wallet_requestsnaps.mdx).
 Since the Snap is already installed, this returns a success response without MetaMask showing a pop-up.
 However, if the user has disabled the Snap, the response has `enabled` set to `false` for your `SNAP_ID`:
 

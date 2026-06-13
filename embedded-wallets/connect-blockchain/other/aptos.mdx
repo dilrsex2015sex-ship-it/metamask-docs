@@ -50,8 +50,12 @@ const aptos = new Aptos(config)
 To begin, install the Aptos SDK:
 
 ```bash npm2yarn
-npm install --save @aptos-labs/ts-sdk
+npm install --save @web3auth/modal @aptos-labs/ts-sdk
 ```
+
+## Initialize Embedded Wallets
+
+<InitializeWeb3Auth />
 
 ## Initializing provider
 
@@ -70,9 +74,9 @@ npm install --save @aptos-labs/ts-sdk
 
 - Chain Namespace: other
 - Chain ID: 0x1
-- Public RPC URL: https://fullnode.mainnet.aptoslabs.com/v1
+- Public RPC URL: `https://fullnode.mainnet.aptoslabs.com/v1`
 - Display Name: Aptos Mainnet
-- Block Explorer Link: https://explorer.aptoslabs.com/
+- Block Explorer Link: `https://explorer.aptoslabs.com/`
 - Ticker: APT
 - Ticker Name: Aptos
 
@@ -84,9 +88,9 @@ npm install --save @aptos-labs/ts-sdk
 
 - Chain Namespace: other
 - Chain ID: 0x7E6
-- Public RPC URL: https://fullnode.testnet.aptoslabs.com/v1
+- Public RPC URL: `https://fullnode.testnet.aptoslabs.com/v1`
 - Display Name: Aptos Testnet
-- Block Explorer Link: https://explorer.aptoslabs.com/testnet
+- Block Explorer Link: `https://explorer.aptoslabs.com/testnet`
 - Ticker: APT
 - Ticker Name: Aptos
 
@@ -97,9 +101,9 @@ npm install --save @aptos-labs/ts-sdk
 
 Once a user logs in, the Embedded Wallets SDK returns a provider. Since there isn't a native provider for Aptos, we use the private key directly for making RPC calls.
 
-Using the function, `web3auth.provider.request({method: "private_key"})` from Web3Auth provider, the application can have access to the user's private key. However, we cannot use this key with Aptos EC Curve specific signing functions, hence, we first derive the Aptos Account using the `getAptosAccount()` function.
+Using the function, `web3auth.connection?.ethereumProvider?.request({ method: 'private_key' })` from Web3Auth provider, the application can have access to the user's private key. However, we cannot use this key with Aptos EC Curve specific signing functions, hence, we first derive the Aptos Account using the `getAptosAccount()` function.
 
-On the underhood, it uses the helper functions from the `aptos` library to derive the key pair.
+Under the hood, it uses the helper functions from the `aptos` library to derive the key pair.
 
 ```tsx
 import { Account, Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk'

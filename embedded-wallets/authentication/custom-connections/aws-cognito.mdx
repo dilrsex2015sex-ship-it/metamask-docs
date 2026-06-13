@@ -4,11 +4,11 @@ sidebar_label: AWS Cognito
 description: 'AWS Cognito Login with Embedded Wallets | Embedded Wallets'
 ---
 
-import CustomConnectionOptions from '@site/static/img/embedded-wallets/w3a-dashboard/authentication-custom-connections.png'
-import AWSConnection from '@site/static/img/embedded-wallets/w3a-dashboard/aws-cognito-connection.png'
+import CustomConnectionOptions from '@site/static/img/embedded-wallets/dev-dashboard/authentication-custom-connections.png'
+import AWSConnection from '@site/static/img/embedded-wallets/dev-dashboard/aws-cognito-connection.png'
 import ImplicitLoginCognito from '../../sdk/react/advanced/_custom-authentication-snippets/_implicit_login_aws_cognito.mdx'
 
-[AWS Cognito](https://aws.amazon.com/cognito/) is a scalable authentication service provided by Amazon Web Services that enables developers to securely manage user sign-up, sign-in, and access control. Embedded Wallets supports AWS Cognito as a service provider, allowing seamless integration between AWS Cognito’s authentication capabilities and Embedded Wallets’s decentralized key management infrastructure.
+[AWS Cognito](https://aws.amazon.com/cognito/) is a scalable authentication service provided by Amazon Web Services that enables developers to securely manage user sign-up, sign-in, and access control. Embedded Wallets supports AWS Cognito as a service provider, integrating AWS Cognito's authentication capabilities and Embedded Wallets's decentralized key management infrastructure.
 
 AWS Cognito [supports a wide set of social logins](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html).
 
@@ -24,29 +24,19 @@ Once the AWS Cognito application is created, developers can proceed to add it as
 
 :::success Create AWS Cognito Connection
 
-To use this feature, developers must go to the **Custom Connections** tab in the [dashboard](https://dashboard.web3auth.io).
+To use this feature, developers must go to the **Custom Connections** tab in the [dashboard](https://developer.metamask.io).
 
 :::
 
-<div style={{ display: 'flex', margin: '20px 0', justifyContent: 'center' }}>
-  <img
-    src={CustomConnectionOptions}
-    style={{
-      maxWidth: '800px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-    }}
-    alt="Custom Connection Options"
-  />
-</div>
+<img className="docImg" src={CustomConnectionOptions} alt="Custom Connection Options" />
 
 Follow these steps to create a AWS Cognito connection:
 
-1. Visit the [dashboard](https://dashboard.web3auth.io).
+1. Visit the [dashboard](https://developer.metamask.io).
 1. Go to the **Custom Connections** section.
-1. Click on the **Settings** icon near the `AWS Cognito` connection.
-1. Enter the `Cognito Connection ID`.
-1. Paste `https://cognito-idp.{REGION}.amazonaws.com/{USER_POOL_ID}/.well-known/jwks.json` as `JWKS Endpoint`.
+1. Click on the **Settings** icon near the **AWS Cognito** connection.
+1. Enter the **Cognito Connection ID**.
+1. Paste `https://cognito-idp.{REGION}.amazonaws.com/{USER_POOL_ID}/.well-known/jwks.json` as **JWKS Endpoint**.
 1. Paste a sample JWT Token to auto populate the best **JWT validations** possible.
 1. Select the **JWT user identifier**: `email`, `sub` or `custom`.
 1. (Optional) Toggle the case sensitivity of **User Identifier**.
@@ -55,25 +45,23 @@ Follow these steps to create a AWS Cognito connection:
    1. Next, type aud as a field and `APP_CLIENT_ID` as a value.
 1. Click on the **Add Connection** button to save the settings.
 
-> Note: Replace the `REGION`, `USER_POOL_ID` and `APP_CLIENT_ID` with your Cognito specific details.
+:::note
 
-<div style={{ display: 'flex', margin: '20px 0', justifyContent: 'center' }}>
-  <img
-    src={AWSConnection}
-    style={{
-      maxWidth: '800px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-    }}
-    alt="AWS Cognito Connection"
-  />
-</div>
+Replace the `REGION`, `USER_POOL_ID`, and `APP_CLIENT_ID` with your Cognito-specific details.
+
+:::
+
+<img className="docImg" src={AWSConnection} alt="AWS Cognito Connection" />
 
 ## Usage
 
-Since, the `AWS Cognito Connection` details are available from the dashboard, developers don't need to pass any additional parameters to the `Web3AuthProvider`.
+Since the **AWS Cognito Connection** details are available from the dashboard, developers don't need to pass any additional parameters to the `Web3AuthProvider`.
 
-> Follow our [quickstart](/quickstart/?product=EMBEDDED_WALLETS&walletAggregatorOnly=NO&framework=REACT&stepIndex=0) to set up the basic flow.
+:::tip
+
+Follow our [quickstart](/quickstart/?product=EMBEDDED_WALLETS&walletAggregatorOnly=NO&framework=REACT&stepIndex=0) to set up the basic flow.
+
+:::
 
 ### Log in with AWS Cognito
 

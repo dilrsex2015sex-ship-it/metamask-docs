@@ -59,25 +59,36 @@ module.exports = (context, options) => ({
     return fileContents
   },
   async contentLoaded({ content, actions }) {
-    const { createData, addRoute } = actions
+    const { createData, addRoute, setGlobalData } = actions
+
+    // Only expose the explicitly opted-in keys as global data (loaded on every page).
+    // All other files are served as per-route modules via addRoute below.
+    const globalDataKeys = options.globalDataKeys ?? []
+    const globalDataSubset = {}
+    for (const shortKey of globalDataKeys) {
+      const filename = qsFileLinks[shortKey]
+      if (filename !== undefined && content[filename] !== undefined) {
+        globalDataSubset[filename] = content[filename]
+      }
+    }
+    setGlobalData(globalDataSubset)
 
     // Create JSON data file
     const files = await createData('files.json', JSON.stringify(content))
 
     const routePath = '/quickstart'
 
+    // This is the single canonical `/quickstart` route. The pages plugin is
+    // configured (in `docusaurus.config.js`) to exclude `quickstart/index.jsx`
+    // so it doesn't auto-generate a duplicate, module-less route for the same
+    // path. The builder navigates entirely via query strings on this path
+    // (e.g. `/quickstart/?product=...&framework=...&stepIndex=...`), so no
+    // catch-all child route is needed. A previous `${routePath}/*` splat route
+    // was removed because it served no real page and emitted a malformed
+    // `/quickstart/*/` URL into the sitemap.
     addRoute({
       path: routePath,
       exact: true,
-      component: '@site/src/pages/quickstart',
-      modules: {
-        files,
-      },
-    })
-
-    // Add this to prevent other routes from being created in the quickstart namespace
-    addRoute({
-      path: `${routePath}/*`,
       component: '@site/src/pages/quickstart',
       modules: {
         files,
@@ -90,6 +101,7 @@ module.exports.validateOptions = ({ options, validate }) =>
   validate(
     joi.object({
       rootDir: joi.string().required(),
+      globalDataKeys: joi.array().items(joi.string()).default([]),
     }),
     options
   )

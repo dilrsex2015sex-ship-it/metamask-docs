@@ -5,8 +5,8 @@ sidebar_position: 2
 
 # Custom EVM accounts
 
-:::caution 
-MetaMask is not currently accepting allowlisting requests for Custom EVM Account Snaps. 
+:::caution
+MetaMask is not currently accepting allowlisting requests for Custom EVM Account Snaps.
 :::
 
 The Keyring API integrates custom EVM accounts inside MetaMask.
@@ -144,9 +144,9 @@ Site -->>- User: Done
 The companion dapp presents a user interface allowing the user to configure their custom account.
 The dapp creates an account using [`keyring_createAccount`](../../reference/keyring-api/account-management/index.md#keyring_createaccount).
 
-The Snap keeps track of the accounts that it creates using [`snap_manageState`](../../reference/snaps-api.md#snap_managestate).
+The Snap keeps track of the accounts that it creates using [`snap_manageState`](../../reference/snaps-api/snap_managestate.mdx).
 Once the Snap has created an account, it notifies MetaMask using
-[`snap_manageAccounts`](../../reference/snaps-api.md#snap_manageaccounts).
+[`snap_manageAccounts`](../../reference/snaps-api/snap_manageaccounts.mdx).
 
 Once the Snap has created an account, that account can be used to sign messages and transactions.
 
@@ -264,7 +264,7 @@ After approval, MetaMask calls
 [`keyring_submitRequest`](../../reference/keyring-api/account-management/index.md#keyring_submitrequest).
 
 Since the Snap doesn't answer the request directly, it stores the pending request in its internal
-state using [`snap_manageState`](../../reference/snaps-api.md#snap_managestate).
+state using [`snap_manageState`](../../reference/snaps-api/snap_managestate.mdx).
 The Snap sends a `{ pending: true, redirect? }` response to indicate that the request will be
 handled asynchronously.
 This response can optionally contain a redirect URL that MetaMask will open in a new tab to allow
@@ -274,18 +274,17 @@ The companion dapp gets the Snap's pending request using
 [`keyring_getRequest`](../../reference/keyring-api/account-management/index.md#keyring_getrequest).
 It resolves the request using
 [`keyring_approveRequest`](../../reference/keyring-api/account-management/index.md#keyring_approverequest),
-and the Snap resolves the request using [`snap_manageAccounts`](../../reference/snaps-api.md#snap_manageaccounts),
+and the Snap resolves the request using [`snap_manageAccounts`](../../reference/snaps-api/snap_manageaccounts.mdx),
 notifying MetaMask of the result.
 
 ## EOA methods
 
-An account management Snap can implement the following methods to support dapp requests from 
+An account management Snap can implement the following methods to support dapp requests from
 externally owned accounts (EOAs):
 
 - [`personal_sign`](../../reference/keyring-api/chain-methods.md#personal_sign)
 - [`eth_signTypedData_v4`](../../reference/keyring-api/chain-methods.md#eth_signtypeddata_v4)
 - [`eth_signTransaction`](../../reference/keyring-api/chain-methods.md#eth_signtransaction)
-- [Deprecated signing methods](/wallet/concepts/signing-methods/#deprecated-signing-methods)
 
 ## Account abstraction (ERC-4337)
 
@@ -293,11 +292,11 @@ externally owned accounts (EOAs):
 :::
 
 Account abstraction, specified by [EIP-4337](https://eips.ethereum.org/EIPS/eip-4337), introduces
-_user operations_ and enables users to manage smart contract accounts containing arbitrary 
+_user operations_ and enables users to manage smart contract accounts containing arbitrary
 verification logic.
 Users can use these ERC-4337 accounts instead of externally owned accounts as primary accounts.
 
-An account management Snap can implement the following methods to support dapp requests from 
+An account management Snap can implement the following methods to support dapp requests from
 ERC-4337 accounts:
 
 - [`eth_prepareUserOperation`](../../reference/keyring-api/chain-methods.md#eth_prepareuseroperation)

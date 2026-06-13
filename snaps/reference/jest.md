@@ -28,10 +28,10 @@ An object with functions that can be used to interact with the Snap.
 #### Example
 
 ```javascript
-import { installSnap } from "@metamask/snaps-jest"
+import { installSnap } from '@metamask/snaps-jest'
 
-describe("MySnap", () => {
-  it("should do something", async () => {
+describe('MySnap', () => {
+  it('should do something', async () => {
     await installSnap(/* optional Snap ID */)
     // ...
   })
@@ -54,21 +54,21 @@ which can be checked using [Jest matchers](#jest-matchers).
 #### Example
 
 ```javascript
-import { installSnap } from "@metamask/snaps-jest"
+import { installSnap } from '@metamask/snaps-jest'
 
-describe("MySnap", () => {
-  it("should respond to foo with bar", async () => {
+describe('MySnap', () => {
+  it('should respond to foo with bar', async () => {
     const { request } = await installSnap(/* Optional snap ID */)
     const response = await request({
-      origin: "http://localhost:8080",
-      method: "foo",
+      origin: 'http://localhost:8080',
+      method: 'foo',
       params: [],
     })
 
     /* Check the response using Jest matchers. Since the response is a standard JSON-RPC response,
      * you can use any standard Jest matchers to check it, including snapshot matchers. */
-    expect(response).toRespondWith("bar")
-    expect(response).not.toRespondWithError("baz")
+    expect(response).toRespondWith('bar')
+    expect(response).not.toRespondWithError('baz')
     expect(response).toMatchSnapshot()
   })
 })
@@ -105,22 +105,22 @@ An object with the user interface that was shown by the Snap, in the
 #### Example
 
 ```javascript
-import { installSnap } from "@metamask/snaps-jest"
-import { panel, text } from "@metamask/snaps-sdk"
+import { installSnap } from '@metamask/snaps-jest'
+import { panel, text } from '@metamask/snaps-sdk'
 
-describe("MySnap", () => {
-  it("should return insights", async () => {
+describe('MySnap', () => {
+  it('should return insights', async () => {
     const { onTransaction } = await installSnap(/* Optional Snap ID */)
     const response = await onTransaction({
-      value: "0x0",
-      data: "0x",
-      gasLimit: "0x5208",
-      maxFeePerGas: "0x5208",
-      maxPriorityFeePerGas: "0x5208",
-      nonce: "0x0",
+      value: '0x0',
+      data: '0x',
+      gasLimit: '0x5208',
+      maxFeePerGas: '0x5208',
+      maxPriorityFeePerGas: '0x5208',
+      nonce: '0x0',
     })
 
-    expect(response).toRender(panel([text("Hello, world!")]))
+    expect(response).toRender(panel([text('Hello, world!')]))
   })
 })
 ```
@@ -144,19 +144,19 @@ which can be checked using [Jest matchers](#jest-matchers).
 #### Example
 
 ```javascript
-import { installSnap } from "@metamask/snaps-jest"
+import { installSnap } from '@metamask/snaps-jest'
 
-describe("MySnap", () => {
-  it("should end foo cron jobs with response bar", async () => {
+describe('MySnap', () => {
+  it('should end foo cron jobs with response bar', async () => {
     const { onCronjob } = await installSnap(/* Optional snap ID */)
     const response = await onCronjob({
-      method: "foo",
+      method: 'foo',
       params: [],
     })
 
     // Check the response using Jest matchers.
-    expect(response).toRespondWith("bar")
-    expect(response).not.toRespondWithError("baz")
+    expect(response).toRespondWith('bar')
+    expect(response).not.toRespondWithError('baz')
   })
 })
 ```
@@ -169,22 +169,22 @@ takes no arguments, and returns a promise that resolves to the response from the
 entry point.
 
 ```js
-import { installSnap } from "@metamask/snaps-jest"
-import { panel, text } from "@metamask/snaps-sdk"
+import { installSnap } from '@metamask/snaps-jest'
+import { panel, text } from '@metamask/snaps-sdk'
 
-describe("MySnap", () => {
-  it("should render the home page", async () => {
+describe('MySnap', () => {
+  it('should render the home page', async () => {
     const { onHomePage } = await installSnap(/* Optional snap ID */)
     const response = await onHomePage()
 
-    expect(response).toRender(panel([text("Hello, world!")]))
+    expect(response).toRender(panel([text('Hello, world!')]))
   })
 })
 ```
 
 ### `getInterface`
 
-If your Snap uses [`snap_dialog`](snaps-api.md#snap_dialog) to show user interfaces, you can use the
+If your Snap uses [`snap_dialog`](snaps-api/snap_dialog.mdx) to show user interfaces, you can use the
 `request.getInterface` method to interact with the user interfaces.
 This method is present on the return value of the [`request`](#request) method.
 
@@ -196,31 +196,31 @@ be used to interact with the user interface.
 #### Example
 
 ```javascript
-import { installSnap } from "@metamask/snaps-jest"
-import { text } from "@metamask/snaps-sdk"
-import { assert } from "@metamask/utils"
+import { installSnap } from '@metamask/snaps-jest'
+import { text } from '@metamask/snaps-sdk'
+import { assert } from '@metamask/utils'
 
-describe("MySnap", () => {
-  it("should render an alert with hello world", async () => {
+describe('MySnap', () => {
+  it('should render an alert with hello world', async () => {
     const { request } = await installSnap(/* Optional Snap ID */)
 
     // Note: You cannot resolve the promise yet!
     const response = request({
-      method: "foo",
+      method: 'foo',
     })
 
     const ui = await response.getInterface()
 
     // This is useful if you're using TypeScript, since it infers the type of the user interface.
-    assert(ui.type === "alert")
-    expect(ui).toRender(text("Hello, world!"))
+    assert(ui.type === 'alert')
+    expect(ui).toRender(text('Hello, world!'))
 
     // Select the OK button.
     await ui.ok()
 
     // Now you can resolve the promise.
     const result = await response
-    expect(result).toRespondWith("bar")
+    expect(result).toRespondWith('bar')
   })
 })
 ```
@@ -238,7 +238,7 @@ response from a Snap matches an expected value:
   If the response is not an error, this matcher fails.
 - `toSendNotification(notificationText)` - Checks if a Snap sent a notification.
 - `toRender(expectedInterface)` - Checks if a Snap rendered an interface.
-  This is useful for testing the user interface of a Snap, either for a [`snap_dialog`](snaps-api.md#snap_dialog)
+  This is useful for testing the user interface of a Snap, either for a [`snap_dialog`](snaps-api/snap_dialog.mdx)
   or a user interface rendered by the [transaction insights API](entry-points.md#ontransaction).
 
 ## Options
@@ -268,11 +268,11 @@ The server options are:
 
 ```javascript title="jest.config.js"
 module.exports = {
-  preset: "@metamask/snaps-jest",
+  preset: '@metamask/snaps-jest',
   testEnvironmentOptions: {
     server: {
       port: 8080,
-      root: "/path/to/snap/files",
+      root: '/path/to/snap/files',
     },
   },
 }

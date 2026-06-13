@@ -1,0 +1,182 @@
+---
+title: Build with AI
+sidebar_label: Build with AI
+toc_max_heading_level: 2
+description: 'Set up the MetaMask Embedded Wallets skill and MCP server in Cursor, Claude, Codex, Antigravity, and other AI coding assistants.'
+image: 'img/metamaskog.jpg'
+keywords:
+  [ai, cursor, claude, codex, antigravity, mcp, llm, coding assistant, embedded wallets, web3auth]
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+Give your AI assistant Embedded Wallets context in two steps. Use **both** together for the best results.
+
+|         | Skill                                               | MCP server                         |
+| ------- | --------------------------------------------------- | ---------------------------------- |
+| Role    | How to choose SDKs, auth, and avoid common mistakes | Live docs, examples, and SDK types |
+| Install | One command (step 1)                                | Per-tool config (step 2)           |
+
+## 1. Install the skill
+
+Run this in your project directory:
+
+```bash
+npx skills add web3auth/skill
+```
+
+The CLI detects your AI agent (Cursor, Claude Code, Codex, Antigravity, and 40+ others) and installs to the right folder.
+See the [web3auth/skill README](https://github.com/Web3Auth/skill) for global or per-agent options.
+
+## 2. Connect the MCP server
+
+Add the [Embedded Wallets MCP server](https://github.com/Web3Auth/web3auth-mcp) so your assistant can search docs and fetch examples.
+All configurations use this URL: `https://mcp.web3auth.io`
+
+<Tabs groupId="ai-tool">
+<TabItem value="cursor" label="Cursor" default>
+
+Open **Cursor Settings → Tools & Integrations → MCP** and add:
+
+```json
+{
+  "mcpServers": {
+    "web3auth": {
+      "url": "https://mcp.web3auth.io"
+    }
+  }
+}
+```
+
+<p>
+or click the button below:
+
+  <a
+    href="https://cursor.com/en/install-mcp?name=web3auth&config=eyJ1cmwiOiJodHRwczovL21jcC53ZWIzYXV0aC5pbyJ9"
+    target="_blank"
+    rel="noopener noreferrer">
+    <img
+      src="https://cursor.com/deeplink/mcp-install-dark.svg"
+      alt="Add MetaMask Embedded Wallets MCP to Cursor"
+      height="32"
+    />
+  </a>
+</p>
+
+</TabItem>
+<TabItem value="claude-code" label="Claude Code">
+
+```bash
+claude mcp add --transport http web3auth https://mcp.web3auth.io
+```
+
+Or add to your project's `claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "web3auth": {
+      "url": "https://mcp.web3auth.io"
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem value="claude-desktop" label="Claude Desktop">
+
+Edit your config file:
+
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+Add the server, then restart Claude Desktop:
+
+```json
+{
+  "mcpServers": {
+    "web3auth": {
+      "url": "https://mcp.web3auth.io"
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem value="antigravity" label="Antigravity">
+
+Edit your MCP config:
+
+- **macOS/Linux**: `~/.config/antigravity/mcp.json`
+- **Windows**: `%APPDATA%\antigravity\mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "web3auth": {
+      "url": "https://mcp.web3auth.io"
+    }
+  }
+}
+```
+
+Antigravity reloads MCP changes automatically.
+
+</TabItem>
+<TabItem value="other" label="Codex / other">
+
+For stdio-only agents, bridge the HTTP endpoint with [mcp-remote](https://github.com/geelen/mcp-remote):
+
+```json
+{
+  "mcpServers": {
+    "web3auth": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.web3auth.io"]
+    }
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 3. Verify and start building
+
+Ask your assistant:
+
+> Search MetaMask Embedded Wallets docs for React quick start
+
+If MCP is connected, it fetches live docs and examples.
+The skill keeps SDK choice and wallet-address pitfalls in check.
+
+Good follow-up prompts:
+
+- _"Add MetaMask Embedded Wallets to your React app with Google sign-in."_
+- _"Set up wallets with social sign-in in your Next.js app using Wagmi."_
+- _"Integrate Embedded Wallets in your Flutter app."_
+- _"Why do users get different wallet addresses after the sign-in method changes?"_
+
+:::tip
+Use planning mode (where available) for your first prompt.
+Review the plan before generating code to catch config mistakes that can change wallet addresses in production.
+:::
+
+## No MCP support?
+
+Add this URL as a custom doc source, or paste it into your chat:
+
+```
+https://docs.metamask.io/llms-embedded-wallets-full.txt
+```
+
+For tools that support [llms.txt](https://llmstxt.org/):
+
+```
+https://docs.metamask.io/llms-embedded-wallets.txt
+```
+
+:::note
+Static files are snapshots. Prefer the MCP server when your tool supports it.
+:::

@@ -4,7 +4,13 @@ sidebar_label: useWalletConnectScanner
 description: '@web3auth/modal Vue Composable useWalletConnectScanner | Embedded Wallets'
 ---
 
-Composable to show the WalletConnect QR scanner using the Wallet Services Plugin in Vue.
+Composable to show the WalletConnect QR scanner using the Wallet Services plugin in Vue.
+
+:::info
+
+Please note that this composable doesn't work for external wallet logins. It only works for social login embedded wallets.
+
+:::
 
 ### Import
 
@@ -29,19 +35,19 @@ import { useWalletConnectScanner } from '@web3auth/modal/vue'
 </template>
 ```
 
-### Return Type
+### Return type
 
 ```ts
 import type { IUseWalletConnectScanner } from '@web3auth/modal/vue'
 ```
 
-#### loading
+#### `loading`
 
 `boolean`
 
 Whether the scanner opening process is in progress.
 
-#### error
+#### `error`
 
 `Web3AuthError | null`
 

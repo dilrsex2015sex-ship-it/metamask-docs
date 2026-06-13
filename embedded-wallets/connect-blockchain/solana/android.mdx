@@ -10,7 +10,7 @@ description: 'Integrate Embedded Wallets with the Solana Blockchain in Android |
 import TabItem from '@theme/TabItem'
 import Tabs from '@theme/Tabs'
 
-While using the Embedded Wallets Android SDK (formerly Web3Auth), you can retrieve the Ed25519 private key upon successful authentication. This private key can be used to derive the user's public address and interact with the [Solana](https://solana.org/) chain. We’ve highlighted a few methods here to get you started quickly.
+While using the Embedded Wallets Android SDK (formerly Web3Auth), you can retrieve the Ed25519 private key upon successful authentication. This private key can be used to derive the user's public address and interact with the [Solana](https://solana.org/) chain. We've highlighted a few methods here to get you started quickly.
 
 ::::note
 
@@ -32,9 +32,9 @@ The SDKs are now branded as MetaMask Embedded Wallet SDKs (formerly Web3Auth Plu
 
 - Chain Namespace: SOLANA
 - Chain ID: 0x1
-- Public RPC URL: https://api.mainnet-beta.solana.com (avoid public RPC in production; prefer managed services)
+- Public RPC URL: `https://api.mainnet-beta.solana.com` (avoid public RPC in production; prefer managed services)
 - Display Name: Solana Mainnet
-- Block Explorer Link: https://explorer.solana.com
+- Block Explorer Link: `https://explorer.solana.com`
 - Ticker: SOL
 - Ticker Name: Solana
 - Logo: https://images.toruswallet.io/solana.svg
@@ -45,9 +45,9 @@ The SDKs are now branded as MetaMask Embedded Wallet SDKs (formerly Web3Auth Plu
 
 - Chain Namespace: SOLANA
 - Chain ID: 0x2
-- Public RPC URL: https://api.testnet.solana.com (avoid public RPC in production; prefer managed services)
+- Public RPC URL: `https://api.testnet.solana.com` (avoid public RPC in production; prefer managed services)
 - Display Name: Solana Testnet
-- Block Explorer Link: https://explorer.solana.com
+- Block Explorer Link: `https://explorer.solana.com`
 - Ticker: SOL
 - Ticker Name: Solana
 - Logo: https://images.toruswallet.io/solana.svg
@@ -58,9 +58,9 @@ The SDKs are now branded as MetaMask Embedded Wallet SDKs (formerly Web3Auth Plu
 
 - Chain Namespace: SOLANA
 - Chain ID: 0x3
-- Public RPC URL: https://api.devnet.solana.com (avoid public RPC in production; prefer managed services)
+- Public RPC URL: `https://api.devnet.solana.com` (avoid public RPC in production; prefer managed services)
 - Display Name: Solana Devnet
-- Block Explorer Link: https://explorer.solana.com?cluster=devnet
+- Block Explorer Link: `https://explorer.solana.com?cluster=devnet`
 - Ticker: SOL
 - Ticker Name: Solana
 - Logo: https://images.toruswallet.io/solana.svg
@@ -72,7 +72,7 @@ The SDKs are now branded as MetaMask Embedded Wallet SDKs (formerly Web3Auth Plu
 
 To interact with the Solana blockchain in Android, you can use any Solana compatible SDK. Here, we're using [sol4k](https://github.com/sol4k/sol4k) to demonstrate how to interact with Solana chain using Web3Auth.
 
-In your app-level gradle's dependencies section, add the following:
+In your app-level `build.gradle` dependencies section, add the following:
 
 <Tabs defaultValue = "groovy"
   values={[
@@ -104,11 +104,11 @@ dependencies {
 
 ## Initialize
 
-To Initialize the `Connection` we require rpc url. The `Connection` object will provide a gateway & protocol to interact with Solana cluster while sending requests and receving response.The `sol4k` SDK also provides `RpcUrl` constant for all the supported clusters. For this example, we are using `RpcUrl.DEVNET` for Devnet-beta. To interact with Testnet or Mainnet, you can simply change the `RpcUrl`.
+To Initialize the `Connection` we require a RPC URL. The `Connection` object will provide a gateway and protocol to interact with Solana cluster while sending requests and receving response. The `sol4k` SDK also provides `RpcUrl` constant for all the supported clusters. For this example, we are using `RpcUrl.DEVNET` for Devnet-beta. To interact with Testnet or Mainnet, change the `RpcUrl`.
 
 ### Initializing the Solana SDK
 
-In the below code block, we'll create the `Connection` instance using the Devnet-beta rpc.
+Create the `Connection` instance using the Devnet-beta RPC, for example:
 
 ```kotlin
 import org.sol4k.Connection
@@ -119,11 +119,15 @@ val connection = Connection(RpcUrl.DEVNET)
 
 ### Initializing the Web3Auth SDK
 
-In the below code block, we'll initialize the Web3Auth SDK and check whether the user has any Web3Auth session persisted or not. If the user is already authenticated, you can route them directly to `HomeScreen`, otherwise you can route them to `LoginScreen` for authentication purpose. For checking, if user is already authenticated, we can check whether private key is empty or not.
+In the following code block, we'll initialize the Web3Auth SDK and check whether the user has any Web3Auth session persisted or not. If the user is already authenticated, you can route them directly to `HomeScreen`, otherwise you can route them to `LoginScreen` for authentication purpose. For checking, if user is already authenticated, we can check whether private key is empty or not.
 
 By default, the session is persisted for 1 day. You can modify it using `sessionTime` parameter during initialization.
 
-> Note: Note: The session can be persisted only for 30 days max
+:::note
+
+The session can be persisted for up to 30 days max.
+
+:::
 
 ```kotlin
 import com.web3auth.core.Web3Auth
@@ -150,7 +154,7 @@ val isUserAuthenticated = web3Auth.getPrivkey().isNotEmpty()
 
 ## Get account
 
-We can use `getEd25519PrivKey` method in Web3Auth to retrieve the private key for the Solana ecosystem. In the below code block, we'll use the Ed25519 private key to retrieve user's public address by creating `Keypair`. The `Keypair` instance from `sol4k` SDK once created can be used to sign the Solana transactions.
+We can use `getEd25519PrivKey` method in Web3Auth to retrieve the private key for the Solana ecosystem. In the following code block, we'll use the Ed25519 private key to retrieve user's public address by creating `Keypair`. The `Keypair` instance from `sol4k` SDK once created can be used to sign the Solana transactions.
 
 ```kotlin
 val ed25519PrivateKey = web3Auth.getEd25519PrivKey()
@@ -162,7 +166,7 @@ val userAccount = solanaKeyPair.publicKey.toBase58()
 
 ## Get user balance
 
-Once we have retrieved userAccount, we can use it to fetch user balance. We'll use `getBalance` method from `Connection` instance to interact with Solana cluster and fetch user balance. The response of `getBalance` is BigInteger, we will need to divide it by by 10^9, because Solana's token decimals is 9.
+Once we have retrieved userAccount, we can use it to fetch user balance. We'll use `getBalance` method from `Connection` instance to interact with Solana cluster and fetch user balance. The response of `getBalance` is BigInteger, we will need to divide it by 10^9, because Solana's token decimals is 9.
 
 ```kotlin
 try {

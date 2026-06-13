@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+Sitemap: https://docs.metamask.io/sitemap.xml

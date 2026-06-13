@@ -13,7 +13,7 @@ title and description) in the user's language.
 ### 1. Get the user's language
 
 In your Snap's code, determine the user's language by using the
-[`snap_getPreferences`](../reference/snaps-api.md#snap_getpreferences) API method.
+[`snap_getPreferences`](../reference/snaps-api/snap_getpreferences.mdx) API method.
 To call `snap_getPreferences`, first request the required permission by adding it to the
 `initialPermissions` field in your manifest file:
 
@@ -48,13 +48,13 @@ You can then use these files in a localization module.
 The following is an example module:
 
 ```ts
-import da from "../locales/da.json"
-import en from "../locales/en.json"
-import nl from "../locales/nl.json"
+import da from '../locales/da.json'
+import en from '../locales/en.json'
+import nl from '../locales/nl.json'
 
 // Default language, to be used if there is not a valid translation in
 // the requested locale.
-const FALLBACK_LANGUAGE: Locale = "en"
+const FALLBACK_LANGUAGE: Locale = 'en'
 
 export const locales = {
   da: da.messages,
@@ -65,7 +65,7 @@ export const locales = {
 export type Locale = keyof typeof locales
 
 export async function getMessage(id: keyof (typeof locales)[Locale]) {
-  const { locale } = (await snap.request({ method: "snap_getPreferences" })) as {
+  const { locale } = (await snap.request({ method: 'snap_getPreferences' })) as {
     locale: Locale
   }
   const { message } = locales[locale]?.[id] ?? locales[FALLBACK_LANGUAGE][id]
@@ -80,15 +80,15 @@ English as the default if the user's locale isn't available.
 The following is an example of using `getMessage` in a Snap's RPC request handler:
 
 ```ts title="index.ts"
-import { rpcErrors } from "@metamask/rpc-errors"
-import type { OnRpcRequestHandler } from "@metamask/snaps-sdk"
+import { rpcErrors } from '@metamask/rpc-errors'
+import type { OnRpcRequestHandler } from '@metamask/snaps-sdk'
 
-import { getMessage } from "./locales"
+import { getMessage } from './locales'
 
 export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   switch (request.method) {
-    case "hello":
-      return await getMessage("hello")
+    case 'hello':
+      return await getMessage('hello')
 
     default:
       throw rpcErrors.methodNotFound({

@@ -50,7 +50,6 @@ The following are guidelines for user notifications, dialogs, and authorizations
 - **Transparent and consentful actions** - Before performing any of the following actions, display a
   [confirmation dialog](../../features/custom-ui/dialogs.md#display-a-confirmation-dialog) that
   contains detailed information about the action and asks the user to reject or accept it:
-
   - **Modifying or reading state.** (In general, notify the user about any state changes.)
   - **Switching networks or accounts.**
   - **Deriving or generating key pairs, accounts, or smart contracts.**
@@ -65,7 +64,6 @@ The following are guidelines for user notifications, dialogs, and authorizations
 - **Limit access to sensitive methods** - When building a Snap with sensitive RPC methods,
   use a companion dapp as an "admin interface" to interact with your Snap's sensitive methods.
   You can do this in two ways:
-
   1. Restrict the [`endowment:rpc`](../../reference/permissions.md#endowmentrpc) permission to specific
      URLs using the `allowedOrigins` caveat.
   2. Filter specific methods to specific URLs using the built-in [URL
@@ -75,12 +73,12 @@ The following are guidelines for user notifications, dialogs, and authorizations
   const referrer = new URL(origin)
 
   if (
-    referrer.protocol === "https:" &&
-    (referrer.host.endsWith(".metamask.io") || referrer.host === "metamask.io")
+    referrer.protocol === 'https:' &&
+    (referrer.host.endsWith('.metamask.io') || referrer.host === 'metamask.io')
   ) {
-    console.log("URL is valid")
+    console.log('URL is valid')
   } else {
-    console.log("URL is NOT valid")
+    console.log('URL is NOT valid')
   }
   ```
 
@@ -108,7 +106,7 @@ user IPs, emails, passwords, and private keys:
 
 - **Private keys** - Avoid retrieving the user's private key from the Snap unless
   absolutely necessary, such as to sign a transaction.
-  If you only need the user's public key, use [`snap_getBip32PublicKey`](../../reference/snaps-api.md#snap_getbip32publickey)
+  If you only need the user's public key, use [`snap_getBip32PublicKey`](../../reference/snaps-api/snap_getbip32publickey.mdx)
   instead of deriving it from the private key.
   Never return the private key in an RPC method to a dapp or another Snap.
   To give users a way to view their private key, display it in a dialog.
@@ -174,9 +172,9 @@ The following are guidelines for validating RPC parameters and handling values:
 Avoid using the following deprecated methods:
 
 - `wallet_enable`, which is deprecated in favor of
-  [`wallet_requestSnaps`](../../reference/wallet-api-for-snaps.md#wallet_requestsnaps).
+  [`wallet_requestSnaps`](../../reference/snaps-api/wallet_requestsnaps.mdx).
 
-- `snap_confirm`, which is deprecated in favor of [`snap_dialog`](../../reference/snaps-api.md#snap_dialog).
+- `snap_confirm`, which is deprecated in favor of [`snap_dialog`](../../reference/snaps-api/snap_dialog.mdx).
 
 - `endowment:long-running`, which is deprecated for MetaMask stable but still allowed in MetaMask Flask.
 
@@ -199,7 +197,7 @@ The following are coding security tips and warnings:
   Do not use insufficient hashing algorithms such as `md5` or `sha2`.
   Do not roll your own cryptography or use custom or unproven cryptography methods or libraries.
 
-  We recommend using [`snap_getEntropy`](../../reference/snaps-api.md#snap_getentropy) for entropy, the
+  We recommend using [`snap_getEntropy`](../../reference/snaps-api/snap_getentropy.mdx) for entropy, the
   built-in [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API) or
   [Noble cryptography libraries](https://paulmillr.com/noble/), and safe hashing algorithms such as `sha256`.
   Choose audited, widely used libraries over obscure, untested implementations.

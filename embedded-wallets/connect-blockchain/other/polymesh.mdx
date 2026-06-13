@@ -24,8 +24,12 @@ The SDKs are now branded as MetaMask Embedded Wallet SDKs (formerly Web3Auth Plu
 For Polymesh, we will use the libraries `@polymeshassociation/polymesh-sdk` and `@polymeshassociation/local-signing-manager` to create the Polymesh address, query the chain and submit transactions.
 
 ```bash npm2yarn
-npm install --save @polymeshassociation/polymesh-sdk @polymeshassociation/local-signing-manager
+npm install --save @web3auth/modal @polymeshassociation/polymesh-sdk @polymeshassociation/local-signing-manager
 ```
+
+## Initialize Embedded Wallets
+
+<InitializeWeb3Auth />
 
 ## Initializing provider
 
@@ -45,9 +49,9 @@ npm install --save @polymeshassociation/polymesh-sdk @polymeshassociation/local-
 
 - Chain Namespace: other
 - Chain ID: 0x1
-- Public RPC URL: https://mainnet-rpc.polymesh.network (Avoid using public rpcTarget in production)
+- Public RPC URL: `https://mainnet-rpc.polymesh.network` (Avoid using public rpcTarget in production)
 - Display Name: Polymesh Mainnet
-- Block Explorer Link: https://polymesh.subscan.io
+- Block Explorer Link: `https://polymesh.subscan.io`
 - Ticker: POLYX
 - Ticker Name: Polymesh
 
@@ -59,9 +63,9 @@ npm install --save @polymeshassociation/polymesh-sdk @polymeshassociation/local-
 
 - Chain Namespace: other
 - Chain ID: 0x5
-- Public RPC URL: https://testnet-rpc.polymesh.live (Avoid using public rpcTarget in production)
+- Public RPC URL: `https://testnet-rpc.polymesh.live` (Avoid using public rpcTarget in production)
 - Display Name: Polymesh Testnet
-- Block Explorer Link: https://polymesh-testnet.subscan.io
+- Block Explorer Link: `https://polymesh-testnet.subscan.io`
 - Ticker: POLYX
 - Ticker Name: Polymesh
 
@@ -72,7 +76,7 @@ npm install --save @polymeshassociation/polymesh-sdk @polymeshassociation/local-
 
 Once a user logs in, the Embedded Wallets SDK returns a provider. Since there isn't a native provider for Polymesh, we directly use the private key to make RPC calls.
 
-Using the function, `web3auth.provider.request({method: "private_key"})` from Web3Auth provider, the application can have access to the user's private key. However, Web3Auth does not provide direct access to Polymesh-specific signing functions, hence, we create a new `LocalSigningManager` and import this private key to give the Polymesh SDK the ability to sign transactions with this key.
+Using the function, `web3auth.connection?.ethereumProvider?.request({ method: 'private_key' })` from Web3Auth provider, the application can have access to the user's private key. However, Web3Auth does not provide direct access to Polymesh-specific signing functions, hence, we create a new `LocalSigningManager` and import this private key to give the Polymesh SDK the ability to sign transactions with this key.
 
 ```tsx
 import { LocalSigningManager } from '@polymeshassociation/local-signing-manager'
@@ -81,7 +85,7 @@ import { LocalSigningManager } from '@polymeshassociation/local-signing-manager'
   Use code from the above Initializing Provider here
 */
 
-// web3authProvider is web3auth.provider from above
+// web3authProvider is web3auth.connection?.ethereumProvider from above
 const privateKey = await web3authProvider.request({ method: 'private_key' })
 
 // create and instance of the polymesh local signing manager and import the web3Auth private hey

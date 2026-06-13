@@ -4,7 +4,17 @@ sidebar_label: useWeb3AuthUser
 description: '@web3auth/modal React Hooks useWeb3AuthUser | Embedded Wallets'
 ---
 
-Hook to fetch and manage the current Web3Auth user information.
+Hook to fetch and manage the current Embedded Wallets user information.
+
+In Web SDK v11, `userInfo` can include a `linkedAccounts` array when the user has linked external wallets.
+See [User details](/embedded-wallets/dashboard/advanced/user-details/#richer-user-object-web-sdk-v11) and [Multi-wallet linking](/embedded-wallets/features/multi-wallet-linking/).
+
+:::info
+
+For external-wallet-only logins, profile fields may be limited compared to social or passwordless logins.
+Use `linkedAccounts` to see every wallet linked to the same user.
+
+:::
 
 ### Import
 
@@ -37,37 +47,38 @@ function UserInfo() {
 }
 ```
 
-### Return Type
+### Return type
 
 ```tsx
 import { type IUseWeb3AuthUser } from '@web3auth/modal/react'
 ```
 
-#### loading
+#### `loading`
 
 `boolean`
 
 Whether the user info fetching process is in progress.
 
-#### error
+#### `error`
 
 `Web3AuthError | null`
 
 Error that occurred during the user info fetching process.
 
-#### userInfo
+#### `userInfo`
 
 `Partial<UserInfo> | null`
 
 The current user's information, or null if not available.
+May include `linkedAccounts` (array of linked wallet addresses and connectors) in Web SDK v11.
 
-#### isMFAEnabled
+#### `isMFAEnabled`
 
 `boolean`
 
 Whether Multi-Factor Authentication (MFA) is enabled for the user.
 
-#### getUserInfo
+#### `getUserInfo`
 
 `() => Promise<Partial<UserInfo> | null>`
 

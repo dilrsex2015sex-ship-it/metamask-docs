@@ -1,16 +1,14 @@
 ---
-title: Web3Auth Events & Status
-sidebar_label: SDK Events
-description: '@web3auth/no-modal Native Account Abstraction | Embedded Wallets'
+title: Embedded Wallets events and status
+sidebar_label: SDK events
+description: '@web3auth/modal SDK events and connection lifecycle | Embedded Wallets'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import ChainConfig from '../_common/_chain-config.mdx'
 
-# Web3Auth Events & Status
-
-This page documents the key properties and lifecycle events available from a Web3Auth instance. These allow you to track the connection status, react to changes, and build responsive user experiences.
+This page documents the key properties and lifecycle events available from an Embedded Wallets instance. These allow you to track the connection status, react to changes, and build responsive user experiences.
 
 ## `connected`
 
@@ -28,21 +26,21 @@ get connected(): boolean;
 const isConnected = web3auth.connected
 ```
 
-## `provider`
+## `connection`
 
-Returns the current provider instance if connected.
-
-#### Interface
-
-```ts
-get provider(): IProvider | null;
-```
+Returns the active wallet connection, including the Ethereum provider and Solana wallet when connected.
 
 #### Usage
 
 ```js
-const provider = web3auth.provider
+const provider = web3auth.connection?.ethereumProvider ?? null
+const solanaWallet = web3auth.connection?.solanaWallet ?? null
 ```
+
+:::note
+
+In Web SDK v11, reading `web3auth.provider` returns `undefined`. Use `connection` instead.
+:::
 
 ## `connectedConnectorName`
 
@@ -59,12 +57,12 @@ connectedConnectorName: WALLET_CONNECTOR_TYPE | null
 <Tabs>
   <TabItem value="table" label="Table">
 
-| Event               | Description                  |
-| ------------------- | ---------------------------- |
-| `AUTH`              | Web3Auth connector.          |
-| `WALLET_CONNECT_V2` | Wallet Connect V2 connector. |
-| `COINBASE`          | Coinbase connector.          |
-| `METAMASK`          | MetaMask connector.          |
+| Event               | Description                 |
+| ------------------- | --------------------------- |
+| `AUTH`              | Web3Auth connector.         |
+| `WALLET_CONNECT_V2` | WalletConnect V2 connector. |
+| `COINBASE`          | Coinbase connector.         |
+| `METAMASK`          | MetaMask connector.         |
 
   </TabItem>
   <TabItem value="interface" label="Interface">
@@ -109,8 +107,8 @@ status: CONNECTOR_STATUS_TYPE
 | `READY`         | Triggered when the connector is ready.                          |
 | `CONNECTING`    | Triggered when a connection is being established.               |
 | `CONNECTED`     | Triggered when a wallet is successfully connected.              |
-| `DISCONNECTING` | Triggered when the wallet is in the process of disconnecting.   |
-| `DISCONNECTED`  | Triggered when the wallet is disconnected.                      |
+| `DISCONNECTING` | Triggered when the wallet is in the process of Disconnecting.   |
+| `DISCONNECTED`  | Triggered when the wallet is Disconnected.                      |
 | `ERRORED`       | Triggered when an error occurs during the connection lifecycle. |
 
   </TabItem>
@@ -149,6 +147,10 @@ get currentChain(): CustomChainConfig | undefined;
 ```
 
 #### `chainConfig`
+
+In Web SDK v11, configure chains on the
+[Embedded Wallets dashboard](/embedded-wallets/dashboard/chains-and-networks/). The shape of each
+chain matches `CustomChainConfig`:
 
 <ChainConfig />
 
@@ -212,7 +214,9 @@ export type ChainNamespaceType = (typeof CHAIN_NAMESPACES)[keyof typeof CHAIN_NA
 #### Usage
 
 ```js
-const connector = web3auth.getConnector('WALLET_CONNECT_V2', 'eip155')
+import { WALLET_CONNECTORS } from '@web3auth/modal'
+
+const connector = web3auth.getConnector(WALLET_CONNECTORS.WALLET_CONNECT_V2, 'eip155')
 ```
 
 ## `getPlugin`

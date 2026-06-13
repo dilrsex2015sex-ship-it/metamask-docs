@@ -1,6 +1,6 @@
 /**
  * Mobile Products Menu Configuration
- * 
+ *
  * This configuration defines a simple flat list of product items
  * displayed in the mobile sidebar under "Products".
  */
@@ -12,12 +12,8 @@ export interface MobileProductItem {
 
 export const mobileProductsMenu: MobileProductItem[] = [
   {
-    label: 'MetaMask SDK',
-    href: '/sdk/',
-  },
-  {
-    label: 'Wallet API',
-    href: '/wallet/',
+    label: 'MetaMask Connect',
+    href: '/metamask-connect',
   },
   {
     label: 'Embedded Wallets',
@@ -26,6 +22,10 @@ export const mobileProductsMenu: MobileProductItem[] = [
   {
     label: 'Smart Accounts Kit',
     href: '/smart-accounts-kit',
+  },
+  {
+    label: 'Agent Wallet',
+    href: '/agent-wallet',
   },
   {
     label: 'Snaps',
@@ -40,4 +40,3 @@ export const mobileProductsMenu: MobileProductItem[] = [
     href: '/developer-tools/dashboard',
   },
 ]
-

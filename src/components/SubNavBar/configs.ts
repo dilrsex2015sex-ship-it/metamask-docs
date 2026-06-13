@@ -10,6 +10,11 @@ export const EMBEDDED_WALLETS_SUBNAV_CONFIG: SubNavBarConfig = {
       path: '/embedded-wallets',
     },
     {
+      key: 'dashboard',
+      label: 'Dashboard',
+      path: '/embedded-wallets/dashboard/',
+    },
+    {
       key: 'sdk',
       label: 'SDKs',
       path: '/embedded-wallets/sdk/',
@@ -35,20 +40,42 @@ export const EMBEDDED_WALLETS_SUBNAV_CONFIG: SubNavBarConfig = {
       path: '/embedded-wallets/connect-blockchain/other/',
     },
     {
-      key: 'dashboard',
-      label: 'Dashboard ↗',
-      path: 'https://dashboard.web3auth.io/',
-    },
-    {
       key: 'demo',
       label: 'Demo ↗',
-      path: 'https://demo.web3auth.io/',
+      path: 'https://ew-demo.metamask.io/',
+    },
+  ],
+}
+
+export const SDK_SUBNAV_CONFIG: SubNavBarConfig = {
+  pathPattern: '/metamask-connect',
+  sectionName: 'MetaMask Connect',
+  links: [
+    {
+      key: 'overview',
+      label: 'Overview',
+      path: '/metamask-connect',
+    },
+    {
+      key: 'multichain',
+      label: 'Multichain',
+      path: '/metamask-connect/multichain',
+    },
+    {
+      key: 'evm',
+      label: 'EVM',
+      path: '/metamask-connect/evm',
+    },
+    {
+      key: 'solana',
+      label: 'Solana',
+      path: '/metamask-connect/solana',
     },
   ],
 }
 
 // Array of all sub nav configs for easy iteration
-export const ALL_SUBNAV_CONFIGS = [EMBEDDED_WALLETS_SUBNAV_CONFIG]
+export const ALL_SUBNAV_CONFIGS = [EMBEDDED_WALLETS_SUBNAV_CONFIG, SDK_SUBNAV_CONFIG]
 
 // Helper function to get config for current path
 export function getSubNavConfigForPath(pathname: string): SubNavBarConfig | null {

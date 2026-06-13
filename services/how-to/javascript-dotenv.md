@@ -37,7 +37,7 @@ You can create a `package.json` file by running a CLI questionnaire, or by creat
 At the root of your project directory, create a file named `.env` containing environment variables for sensitive information that shouldn't be shared, such as an Infura API key, Ethereum private key, or MetaMask secret recovery phrase:
 
 ```bash
-INFURA_API_KEY = "<YOUR-API-KEY>"
+RPC_URL = "https://sepolia.infura.io/v3/<YOUR-API-KEY>"
 PRIVATE_KEY = "<YOUR-PRIVATE-KEY>"
 ```
 
@@ -52,20 +52,20 @@ Never disclose your private keys or secret recovery phrases. Anyone with your pr
 Give your project access to the `.env` information by including the following line at the top of your project script:
 
 ```javascript
-require("dotenv").config()
+require('dotenv').config()
 ```
 
 Access the environment variables using `process.env.<YOUR-ENV-VAR-NAME>`. For example, the following is a `hardhat.config.js` file for a Hardhat project:
 
 ```javascript
-require("@nomiclabs/hardhat-waffle")
-require("dotenv").config()
+require('@nomiclabs/hardhat-waffle')
+require('dotenv').config()
 
 module.exports = {
-  solidity: "0.8.0",
+  solidity: '0.8.0',
   networks: {
-    rinkeby: {
-      url: process.env.INFURA_API_KEY,
+    sepolia: {
+      url: process.env.RPC_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
   },

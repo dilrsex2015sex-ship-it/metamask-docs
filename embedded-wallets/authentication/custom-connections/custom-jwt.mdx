@@ -8,11 +8,11 @@ image: 'img/metamaskog.jpg'
 import TabItem from '@theme/TabItem'
 import Tabs from '@theme/Tabs'
 
-import CustomConnectionOptions from '@site/static/img/embedded-wallets/w3a-dashboard/authentication-custom-connections.png'
-import CustomJWTConnection from '@site/static/img/embedded-wallets/w3a-dashboard/custom-connection.png'
+import CustomConnectionOptions from '@site/static/img/embedded-wallets/dev-dashboard/authentication-custom-connections.png'
+import CustomJWTConnection from '@site/static/img/embedded-wallets/dev-dashboard/custom-connection.png'
 import JwtLoginCustom from '../../sdk/react/advanced/_custom-authentication-snippets/_jwt_login_custom.mdx'
 
-Embedded Wallets supports integration with custom login providers through [JWT-based](https://www.jwt.io/introduction#what-is-json-web-token) authentication schemes, allowing developers to maintain their existing authentication infrastructure while leveraging Web3Auth’s wallet and key management capabilities. Custom authentication can be implemented using industry-standard cryptographic algorithms such as RSA or ECDSA signatures.
+Embedded Wallets supports integration with custom login providers through [JWT-based](https://www.jwt.io/introduction#what-is-json-web-token) authentication schemes, allowing developers to maintain their existing authentication infrastructure while leveraging Web3Auth's wallet and key management capabilities. Custom authentication can be implemented using industry-standard cryptographic algorithms such as RSA or ECDSA signatures.
 
 To use this feature, developers must ensure that their JWTs adhere to the [JWT specification](https://datatracker.ietf.org/doc/html/rfc7519). Each JWT must be signed using a private key, and its corresponding public key must be accessible via a [JWKS (JSON Web Key Set)](https://datatracker.ietf.org/doc/html/rfc7517) endpoint. Web3Auth will use this endpoint to verify the integrity and authenticity of incoming tokens during login.
 
@@ -22,48 +22,28 @@ Once the custom JWT login is working, developers can proceed to add it as a cust
 
 :::success Create Custom Connection
 
-To use this feature, developers must go to the **Custom Connections** tab in the [dashboard](https://dashboard.web3auth.io).
+To use this feature, developers must go to the **Custom Connections** tab in the [dashboard](https://developer.metamask.io).
 
 :::
 
-<div style={{ display: 'flex', margin: '20px 0', justifyContent: 'center' }}>
-  <img
-    src={CustomConnectionOptions}
-    style={{
-      maxWidth: '600px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-    }}
-    alt="Custom Connection Options"
-  />
-</div>
+<img className="docImg" src={CustomConnectionOptions} alt="Custom Connection Options" />
 
 Follow these steps to create a custom JWT connection:
 
-1. Visit the [Embedded Wallets Dashboard](https://dashboard.web3auth.io).
+1. Visit the [Embedded Wallets dashboard](https://developer.metamask.io).
 1. Go to the **Custom Connections** section.
 1. Click on the **Settings** icon near the **Custom Connection**.
-1. Enter the `Auth Connection ID`.
-1. Paste the `JWKS Endpoint`.
-1. Paste a sample `JWT Token` to auto populate the best **JWT validations** possible.
-1. Select the `JWT user identifier`: `email`, `sub` or `custom`.
-1. (Optional) Toggle the case sensitivity of `User Identifier`. 
+1. Enter the **Auth Connection ID**.
+1. Paste the **JWKS Endpoint**.
+1. Paste a sample **JWT Token** to auto populate the best **JWT validations** possible.
+1. Select the **JWT user identifier**: `email`, `sub` or `custom`.
+1. (Optional) Toggle the case sensitivity of `User Identifier`.
 1. Click on **Add Custom Validations** to add validations manually.
    1. Type iss as a field and `your-issuer` as a value.
    1. Type aud as a field and `your-audience` as a value.
 1. Click the **Add Connection** button to save the settings.
 
-<div style={{ display: 'flex', margin: '20px 0', justifyContent: 'center' }}>
-  <img
-    src={CustomJWTConnection}
-    style={{
-      maxWidth: '600px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-    }}
-    alt="Custom JWT Connection"
-  />
-</div>
+<img className="docImg" src={CustomJWTConnection} alt="Custom JWT Connection" />
 
 ## Create a JWT
 
@@ -134,7 +114,7 @@ values={[
 >
 <TabItem value="jsonwebtoken">
 
-Web3Auth provides documentation for using RSA256 and ECDSA—two of the most commonly used algorithms—for generating JWTs with the `jsonwebtoken` package. For a complete list of supported algorithms, developers can refer to the [jsonwebtoken documentation](https://www.npmjs.com/package/jsonwebtoken#algorithms-supported).
+Web3Auth provides documentation for using RSA256 and ECDSA, two of the most commonly used algorithms, for generating JWTs with the `jsonwebtoken` package. For a complete list of supported algorithms, developers can refer to the [jsonwebtoken documentation](https://www.npmjs.com/package/jsonwebtoken#algorithms-supported).
 
 <Tabs
 defaultValue="rsa"
@@ -223,7 +203,7 @@ const jwt = await new jose.SignJWT({ 'urn:example:claim': true })
 console.log(jwt)
 
 // Verifying the JWT using Remote JWK Set.
-// This is just to show how the Verify works, look above to set-up custom jwt verifier on the Embedded Wallets Dashboard.
+// This is just to show how the Verify works, look above to set-up custom jwt verifier on the Embedded Wallets dashboard.
 // Check the steps below to see how once can generate the JWKS
 const JWKS = jose.createRemoteJWKSet(new URL('https://my-authz-server/.well-known/jwks.json'))
 
@@ -247,9 +227,13 @@ Check out the [troubleshooting page](/embedded-wallets/troubleshooting/jwt-error
 
 ## Usage
 
-Since, the **Custom Connection** details are available from the dashboard, developers don't need to pass any additional parameters to the `Web3AuthProvider`.
+Since the **Custom Connection** details are available from the dashboard, developers don't need to pass any additional parameters to the `Web3AuthProvider`.
 
-> Follow our [quickstart](/quickstart/?product=EMBEDDED_WALLETS&walletAggregatorOnly=NO&framework=REACT&stepIndex=0) to set up the basic flow.
+:::tip
+
+Follow our [quickstart](/quickstart/?product=EMBEDDED_WALLETS&walletAggregatorOnly=NO&framework=REACT&stepIndex=0) to set up the basic flow.
+
+:::
 
 ### Log in with JWT
 
@@ -257,7 +241,7 @@ Since, the **Custom Connection** details are available from the dashboard, devel
 
 ## What are JWKS?
 
-JWKS stands for JSON Web Key Set. It is a set of keys containing the public keys that should be used to verify any JSON Web Token (JWT) issued by the authorization server and signed using the RS256 signing algorithm.
+JWKS stands for JSON Web Key Set. It's a set of keys containing the public keys that should be used to verify any JSON Web Token (JWT) issued by the authorization server and signed using the RS256 signing algorithm.
 
 ### How to create JWKS?
 
@@ -269,7 +253,7 @@ JWKS stands for JSON Web Key Set. It is a set of keys containing the public keys
 
 - If you are using your own custom JWT, you will need to convert your PEM file to JWKS.
 
-### How to convert PEM to JWKS?
+### How to convert PEM to JWKS
 
 If you're using `jose` or `jsonwebtoken` library, you can use the following steps to convert your PEM file to JWKS.
 
@@ -303,4 +287,4 @@ If you're using `jose` or `jsonwebtoken` library, you can use the following step
 
 4. To complete the process, you need to save the output as a `.json` file, host it on your server, and make sure it's publicly accessible.
 
-   This will give you the `JWKS Endpoint`, which is required when setting up a **Custom JWT Verifier** on the Embedded Wallets Dashboard.
+   This will give you the `JWKS Endpoint`, which is required when setting up a **Custom JWT Verifier** on the Embedded Wallets dashboard.

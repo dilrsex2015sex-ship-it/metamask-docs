@@ -24,8 +24,7 @@
   --font-mm-sans: 'MM Sans', Arial, 'Helvetica Neue', Helvetica, sans-serif;
   --font-mm-sans-mono: 'MM Sans Mono', 'Andale Mono', AndaleMono, monospace;
   --font-mm-sans-variable: 'MM Sans Variable', Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  --font-mm-centra: 'MM Centra No1', Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  --font-mm-euclid: 'Euclid Circular B', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-mm-geist: 'Geist', Arial, 'Helvetica Neue', Helvetica, sans-serif;
   --ifm-color-primary: var(--developer-purple);
   --ifm-color-primary-dark: var(--developer-purple-dark);
   --ifm-color-primary-darker: var(--institution-purple-dark-2);
@@ -40,8 +39,6 @@
   --color-text-heading: var(--ifm-heading-color);
   --color-text: var(--general-black);
   --color-text-paragraph: var(--color-text);
-  --ifm-code-font-size: 90%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --select-arrow: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 7"><path fill="currentColor" fill-rule="evenodd" d="M11.9038 1.82478 5.24975 6.80979-1.4043 1.82478-.385019.464234 5.24975 4.68564 10.8845.464233l1.0193 1.360547Z" clip-rule="evenodd"/></svg>');
 
   /* Links */
@@ -75,7 +72,7 @@
 
   --ifm-font-family-monospace: var(--font-mm-sans-mono);
   --ifm-heading-font-family: var(--ifm-font-family-monospace);
-  --ifm-font-family-base: var(--font-mm-euclid);
+  --ifm-font-family-base: var(--font-mm-geist);
   --font-family-sans: var(--font-mm-sans);
 
   --ifm-color-success: var(--developer-green-light);
@@ -107,7 +104,7 @@
   --ifm-color-black: var(--general-black);
 
   --ifm-color-content-secondary: var(--general-gray-dark);
-  
+
   --ifm-background-color: var(--general-white);
 
   --ifm-container-width-xl: var(--site-container-max-width);
@@ -136,9 +133,18 @@
   --search-input-focus: var(--general-black);
 
   /* Code Block */
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --ifm-code-border-radius: 0;
   --prism-background-color: var(--general-black-light);
   --ifm-code-font-size: 1.6rem;
+
+  /* Inline code */
+  --inline-code-font: 'Andale Mono', AndaleMono, Menlo, Consolas, Monaco, 'Courier New', monospace;
+  --inline-code-font-size: 0.85em;
+  --inline-code-font-weight: 600;
+  --inline-code-baseline-nudge: -0.045em;
+  --inline-code-border-radius: 0.35rem;
+  --inline-code-padding: 0.05em 0.25em;
 
   /* Markdown: Tables */
   --ifm-table-border-color: var(--general-gray-light);
@@ -329,14 +335,6 @@ ol {
   display: none !important;
 }
 
-/* Code blocks */
-
-.codeBlockTitle_Ktv7 {
-  border-bottom: 1px solid var(--ifm-color-emphasis-500) !important;
-  background-color: var(--general-black-light) !important;
-  padding: 1rem 2rem !important;
-}
-
 /* NavBar */
 
 .colorModeToggle_DEke {
@@ -394,27 +392,8 @@ ol {
   font-size: 1.3rem !important;
 }
 
-/* Details */
-
-.details_lb9f > summary {
-  padding-left: 2.7rem !important;
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.02rem;
-  text-transform: uppercase;
-
-  &::before {
-    border-width: 0.8rem !important;
-    margin-left: 0.5rem !important;
-  }
-}
-
-.collapsibleContent_i85q {
+.markdown [class*='collapsibleContent'] {
   padding-top: 0 !important;
-
-  > div {
-    font-weight: normal;
-  }
 }
 
 /* Images */
@@ -432,6 +411,15 @@ ol {
 .appScreen {
   border: 1px solid #dcdcdc;
   border-radius: 0.5rem;
+}
+
+.docImg {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 16px 0;
 }
 
 /* Doc version banner */
@@ -852,7 +840,7 @@ code:hover .code-unfocus {
 }
 
 div[class^='theme-announcement-bar'] {
-  font-family: var(--font-mm-euclid);
+  font-family: var(--font-mm-geist);
   font-size: 1.4rem;
   padding: 0.5rem 2rem;
   text-align: center;
@@ -884,7 +872,8 @@ div[class^='theme-announcement-bar'] {
   }
 }
 
-/* Removes "What's new?" on small viewports to make room for left navbar labels */
+/* Hides right-side navbar items (Faucet, Help, etc.) on small viewports
+   to make room for left-side navbar labels. */
 @media (max-width: 1196px) {
   .navbar__items--right .navbar__item {
     display: none;
@@ -1189,6 +1178,11 @@ html {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
+}
+
+.sdk-selection-menu a span svg.icon-thin {
+  width: 22px;
+  height: 22px;
 }
 
 @media screen and (max-width: 996px) {

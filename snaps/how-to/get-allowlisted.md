@@ -23,7 +23,6 @@ Always do your own research before installing a Snap.
 ## Prerequisites
 
 - Ensure that your Snap:
-
   - Has publicly available source code.
     You don't need to publish your code with an open source license, but users should be able to read
     the source code of the Snap package.
@@ -37,12 +36,11 @@ Always do your own research before installing a Snap.
 
 - If your Snap uses any of the following API methods related to key management, you must provide
   evidence of a third-party audit from an approved auditor:
-
-  - [`snap_getBip32Entropy`](../reference/snaps-api.md#snap_getbip32entropy)
-  - [`snap_getBip32PublicKey`](../reference/snaps-api.md#snap_getbip32publickey)
-  - [`snap_getBip44Entropy`](../reference/snaps-api.md#snap_getbip44entropy)
-  - [`snap_getEntropy`](../reference/snaps-api.md#snap_getentropy)
-  - [`snap_manageAccounts`](../reference/snaps-api.md#snap_manageaccounts)
+  - [`snap_getBip32Entropy`](../reference/snaps-api/snap_getbip32entropy.mdx)
+  - [`snap_getBip32PublicKey`](../reference/snaps-api/snap_getbip32publickey.mdx)
+  - [`snap_getBip44Entropy`](../reference/snaps-api/snap_getbip44entropy.mdx)
+  - [`snap_getEntropy`](../reference/snaps-api/snap_getentropy.mdx)
+  - [`snap_manageAccounts`](../reference/snaps-api/snap_manageaccounts.mdx)
 
   The audit must cover the Snap source code that is to run within the Snaps system, and any modules
   used for key management.
@@ -74,16 +72,14 @@ The form requests information about your Snap, including the following:
   **long description**, but this URL should be an official website designed to interact with your Snap.
 
 - **Snap short description** - A one or two sentence description of your Snap.
-  Try not to say "is a MetaMask Snap"—users already know this!
+  Try not to say "is a MetaMask Snap." Users already know this!
 
 - **Snap long description** - A description of your Snap's features and how to use them.
   You can use line breaks, lists, and URLs.
   You cannot use HTML.
   If applicable, describe quick steps to onboard and use the Snap.
-  For example: _After installing the Snap, visit the companion dapp at
-  https://voyager-snap.linea.build to connect an account and track your Linea Voyage progress._
 
-- **GitHub repository and npm package URLs** - The public GitHub repo that hosts your Snap's 
+- **GitHub repository and npm package URLs** - The public GitHub repo that hosts your Snap's
   source code, and the npm package of your [published Snap](../how-to/publish-a-snap.md).
   If your Snap's source code is hosted on a different site, such as GitLab, you can link to that instead.
 
@@ -163,11 +159,10 @@ The following is a list of permissions that do not require allowlisting:
 - [`endowment:page-home`](../reference/permissions.md#endowmentpage-home)
 - [`endowment:signature-insight`](../reference/permissions.md#endowmentsignature-insight)
 - [`endowment:transaction-insight`](../reference/permissions.md#endowmenttransaction-insight)
-- [`snap_dialog`](../reference/snaps-api.md#snap_dialog)
-- [`snap_getLocale`](../reference/snaps-api.md#snap_getlocale-deprecated)
-- [`snap_getPreferences`](../reference/snaps-api.md#snap_getpreferences)
-- [`snap_manageState`](../reference/snaps-api.md#snap_managestate)
-- [`snap_notify`](../reference/snaps-api.md#snap_notify)
+- [`snap_dialog`](../reference/snaps-api/snap_dialog.mdx)
+- [`snap_getPreferences`](../reference/snaps-api/snap_getpreferences.mdx)
+- [`snap_manageState`](../reference/snaps-api/snap_managestate.mdx)
+- [`snap_notify`](../reference/snaps-api/snap_notify.mdx)
 
 If your Snap only uses permissions from this list,
 it can be installed in the MetaMask extension without inclusion on the allowlist.

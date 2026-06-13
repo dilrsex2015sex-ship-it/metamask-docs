@@ -1,0 +1,63 @@
+---
+title: useAuthTokenInfo
+sidebar_label: useAuthTokenInfo
+description: '@web3auth/modal React Hooks useAuthTokenInfo | Embedded Wallets'
+---
+
+Hook to retrieve and manage the identity token from Embedded Wallets.
+
+### Import
+
+```tsx
+import { useAuthTokenInfo } from '@web3auth/modal/react'
+```
+
+### Usage
+
+```tsx
+import { useAuthTokenInfo } from '@web3auth/modal/react'
+
+function AuthTokenInfoButton() {
+  const { getAuthTokenInfo, loading, error, token } = useAuthTokenInfo()
+
+  return (
+    <div>
+      <button onClick={() => getAuthTokenInfo()} disabled={loading}>
+        {loading ? 'Authenticating...' : 'Get Identity Token'}
+      </button>
+      {token && <div>Token: {token}</div>}
+      {error && <div>Error: {error.message}</div>}
+    </div>
+  )
+}
+```
+
+### Return type
+
+```tsx
+import { type IUseAuthTokenInfo } from '@web3auth/modal/react'
+```
+
+#### `loading`
+
+`boolean`
+
+Whether the authentication process is in progress.
+
+#### `error`
+
+`Web3AuthError | null`
+
+Error that occurred during the authentication process.
+
+#### `token`
+
+`string | null`
+
+The identity token returned after successful authentication.
+
+#### `getAuthTokenInfo`
+
+`() => Promise<string | null>`
+
+Function to initiate the authentication process and retrieve the identity token.

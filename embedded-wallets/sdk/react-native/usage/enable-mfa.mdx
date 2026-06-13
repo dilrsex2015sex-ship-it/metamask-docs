@@ -1,0 +1,51 @@
+---
+title: Enable MFA
+sidebar_label: Enable MFA
+description: 'Web3Auth React Native SDK v9 - Enable MFA with useEnableMFA | Embedded Wallets'
+---
+
+import MFAMinimumPlan from '../../_common/_scale_plan_note.mdx'
+
+Use the `useEnableMFA` hook to let users enable Multi-Factor Authentication for their embedded wallet.
+
+<MFAMinimumPlan />
+
+:::info
+
+MFA is only available for social login embedded wallets. It is not supported for external wallet connections.
+
+:::
+
+## Import
+
+```tsx
+import { useEnableMFA } from '@web3auth/react-native-sdk'
+```
+
+## Usage
+
+```tsx
+import { useEnableMFA } from '@web3auth/react-native-sdk'
+
+function EnableMFAView() {
+  const { enableMFA, loading, error } = useEnableMFA()
+
+  return (
+    <View>
+      <Text>Secure your wallet with Multi-Factor Authentication.</Text>
+      <Button
+        title={loading ? 'Setting up MFA…' : 'Enable MFA'}
+        disabled={loading}
+        onPress={() => enableMFA()}
+      />
+      {error && <Text style={{ color: 'red' }}>{error.message}</Text>}
+    </View>
+  )
+}
+```
+
+## Related
+
+- [useEnableMFA hook reference](../hooks/useEnableMFA.mdx)
+- [useManageMFA hook reference](../hooks/useManageMFA.mdx)
+- [MFA advanced guide](../advanced/mfa.mdx)

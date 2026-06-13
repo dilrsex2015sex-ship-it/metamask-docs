@@ -4,37 +4,27 @@ sidebar_label: OAuth 2.0
 description: 'OAuth 2.0 Login with Embedded Wallets | Embedded Wallets'
 ---
 
-import OAuthToggle from '@site/static/img/embedded-wallets/w3a-dashboard/authentication-social-connections.png'
+import OAuthToggle from '@site/static/img/embedded-wallets/dev-dashboard/authentication-social-connections.png'
 
 [OAuth 2.0](https://oauth.net/2/) is a widely adopted standard that enables users to authenticate with third-party identity providers in a secure and user-friendly manner. Web3Auth offers native support for multiple OAuth 2.0 login options, allowing developers to integrate familiar authentication experiences directly into their applications.
 
 :::success Enable on dashboard
 
-To use this feature, enable X(Twitter), Farcaster, Apple, GitHub, Reddit, Line, Kakao, LinkedIn, or WeChat from the **Social Connections** section in the [dashboard](https://dashboard.web3auth.io).
+To use this feature, enable X (Twitter), Farcaster, Apple, GitHub, Reddit, Line, Kakao, LinkedIn, or WeChat from the **Social Connections** section in the [dashboard](https://developer.metamask.io).
 
-> By default, Web3Auth uses its own pre-configured credentials for different social login providers.
+By default, Web3Auth uses its own pre-configured credentials for different social login providers.
 
 :::
 
-<div style={{ display: 'flex', margin: '20px 0', justifyContent: 'center' }}>
-  <img
-    src={OAuthToggle}
-    style={{
-      maxWidth: '800px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-    }}
-    alt="Toggle OAuth Connection on Dashboard"
-  />
-</div>
+<img className="docImg" src={OAuthToggle} alt="Toggle OAuth Connection on Dashboard" />
 
 ## Usage
 
-> Follow our [quickstart](/quickstart/?product=EMBEDDED_WALLETS&walletAggregatorOnly=NO&framework=REACT&stepIndex=0) to set up the basic flow.
+Follow our [quickstart](/quickstart/?product=EMBEDDED_WALLETS&walletAggregatorOnly=NO&framework=REACT&stepIndex=0) to set up the basic flow.
 
 ### Log in with X
 
-> Don't forget to enable X(Twitter) on the dashboard.
+Ensure that you enable X (Twitter) on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'
@@ -63,7 +53,7 @@ function CustomConnectors() {
 
 ### Log in with Farcaster
 
-> Don't forget to enable Farcaster on the dashboard.
+Ensure that you enable Farcaster on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'
@@ -92,7 +82,7 @@ function CustomConnectors() {
 
 ### Log in with Apple
 
-> Don't forget to enable Apple on the dashboard.
+Ensure that you enable Apple on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'
@@ -121,7 +111,7 @@ function CustomConnectors() {
 
 ### Log in with GitHub
 
-> Don't forget to enable GitHub on the dashboard.
+Ensure that you enable GitHub on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'
@@ -150,7 +140,7 @@ function CustomConnectors() {
 
 ### Log in with Reddit
 
-> Don't forget to enable Reddit on the dashboard.
+Ensure that you enable Reddit on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'
@@ -179,7 +169,7 @@ function CustomConnectors() {
 
 ### Log in with Line
 
-> Don't forget to enable Line on the dashboard.
+Ensure that you enable Line on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'
@@ -208,7 +198,7 @@ function CustomConnectors() {
 
 ### Log in with Kakao
 
-> Don't forget to enable Kakao on the dashboard.
+Ensure that you enable Kakao on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'
@@ -237,7 +227,7 @@ function CustomConnectors() {
 
 ### Log in with LinkedIn
 
-> Don't forget to enable LinkedIn on the dashboard.
+Ensure that you enable LinkedIn on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'
@@ -266,7 +256,7 @@ function CustomConnectors() {
 
 ### Log in with WeChat
 
-> Don't forget to enable WeChat on the dashboard.
+Ensure that you enable WeChat on the dashboard.
 
 ```tsx title="App.tsx"
 import { useWeb3AuthConnect } from '@web3auth/modal/react'

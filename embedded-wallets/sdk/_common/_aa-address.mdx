@@ -1,5 +1,5 @@
-import TabItem from "@theme/TabItem";
-import Tabs from "@theme/Tabs";
+import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
 
 Once the signers or Wagmi configuration is set up, it can be used to retrieve the user's Smart
 Account address.
@@ -9,7 +9,7 @@ Account address.
   values={[
     { label: "Viem", value: "viem" },
     { label: "Ethers", value: "ethers" },
-    { label: "Wagmi", value: "wagmi" },
+    { label: "Wagmi", value: "Wagmi" },
   ]}
 >
 
@@ -17,10 +17,10 @@ Account address.
 
 ```tsx
 // Use walletClient instance from previous step
-const addresses = await walletClient.getAddresses();
+const addresses = await walletClient.getAddresses()
 
-const smartAccountAddress = addresses[0];
-const eoaAddress = addresses[1];
+const smartAccountAddress = addresses[0]
+const eoaAddress = addresses[1]
 ```
 
 </TabItem>
@@ -29,19 +29,20 @@ const eoaAddress = addresses[1];
 
 ```tsx
 // User signer from previous step
-const smartAccountAddress = signer.getAddress();
+const smartAccountAddress = signer.getAddress()
 ```
 
 </TabItem>
 
-<TabItem value="wagmi">
-
+<TabItem value="Wagmi">
 ```tsx
-import { useAccount } from "wagmi";
+import { useConnection } from 'wagmi'
 
-const { address } = useAccount();
-const smartAccountAddress = address;
+const { address } = useConnection()
+const smartAccountAddress = address
+
 ```
 
 </TabItem>
 </Tabs>
+```

@@ -22,8 +22,12 @@ The SDKs are now branded as MetaMask Embedded Wallet SDKs (formerly Web3Auth Plu
 ## Installation
 
 ```bash npm2yarn
-npm install --save web3 bn.js elliptic @starkware-industries/starkex-js @starkware-industries/starkware-crypto-utils
+npm install --save @web3auth/modal web3 bn.js elliptic @starkware-industries/starkex-js @starkware-industries/starkware-crypto-utils
 ```
+
+## Initialize Embedded Wallets
+
+<InitializeWeb3Auth />
 
 ## Initializing provider
 
@@ -42,9 +46,9 @@ npm install --save web3 bn.js elliptic @starkware-industries/starkex-js @starkwa
 
 - Chain Namespace: other
 - Chain ID: 0x1
-- Public RPC URL: https://rpc.ethereum.org (Avoid using public rpcTarget in production)
+- Public RPC URL: `https://rpc.ethereum.org` (Avoid using public rpcTarget in production)
 - Display Name: StarkEx Mainnet
-- Block Explorer Link: https://etherscan.io
+- Block Explorer Link: `https://etherscan.io`
 - Ticker: STARK
 - Ticker Name: StarkEx
 
@@ -56,9 +60,9 @@ npm install --save web3 bn.js elliptic @starkware-industries/starkex-js @starkwa
 
 - Chain Namespace: other
 - Chain ID: 0xaa36a7
-- Public RPC URL: https://rpc.sepolia.org (Avoid using public rpcTarget in production)
+- Public RPC URL: `https://ethereum-sepolia.publicnode.com` (Avoid using public rpcTarget in production)
 - Display Name: StarkEx Testnet
-- Block Explorer Link: https://sepolia.etherscan.io
+- Block Explorer Link: `https://sepolia.etherscan.io`
 - Ticker: STARK
 - Ticker Name: StarkEx
 
@@ -69,9 +73,9 @@ npm install --save web3 bn.js elliptic @starkware-industries/starkex-js @starkwa
 
 Once a user logs in, the Embedded Wallets SDK returns a provider. Even though StarkEx is a layer 2 on Ethereum, it is not EVM compatible. Therefore, you cannot use the native [`EIP-1193`](https://eips.ethereum.org/EIPS/eip-1193) provider used for EVM blockchains; instead, use the private key directly to make calls.
 
-Using the function, `web3auth.provider.request({method: "private_key"})` from Web3Auth provider, the application can have access to the user's private key. However, we cannot use this key with StarkEx EC Curve specific signing functions, hence, we first derive the Stark Key using the `getStarkKey()` function.
+Using the function, `web3auth.connection?.ethereumProvider?.request({ method: 'private_key' })` from Web3Auth provider, the application can have access to the user's private key. However, we cannot use this key with StarkEx EC Curve specific signing functions, hence, we first derive the Stark Key using the `getStarkKey()` function.
 
-On the underhood, it uses the `starkwareCrypto.ec.keyFromPrivate()` function, where we pass our Private key with the `hex` argument, since it is hex encoded. Further we get the public key from this using the `starkwareCrypto.ec.keyFromPublic()` function, and we take its X-coordinate using `.pub.getX()` which is our `starkKey`. We use this starkKey on `StarkEx` transactions.
+Under the hood, it uses the `starkwareCrypto.ec.keyFromPrivate()` function, where we pass our Private key with the `hex` argument, since it is hex encoded. Further we get the public key from this using the `starkwareCrypto.ec.keyFromPublic()` function, and we take its X-coordinate using `.pub.getX()` which is our `starkKey`. We use this starkKey on `StarkEx` transactions.
 
 ```tsx
 import starkwareCrypto from '@starkware-industries/starkware-crypto-utils'
@@ -80,7 +84,7 @@ import { ec as elliptic } from 'elliptic'
   Use code from the above Initializing Provider here
 */
 
-// web3authProvider is web3auth.provider from above
+// web3authProvider is web3auth.connection?.ethereumProvider from above
 const privateKey = await web3authProvider.request({ method: 'private_key' })
 const keyPair = starkwareCrypto.ec.keyFromPrivate(privateKey, 'hex')
 // get the account address from the public key
@@ -105,7 +109,7 @@ const starkExAPI = new StarkExAPI({
   Use code from the above Initializing Provider here
 */
 
-// web3authProvider is web3auth.provider from above
+// web3authProvider is web3auth.connection?.ethereumProvider from above
 const privateKey = await web3authProvider.request({ method: 'private_key' })
 const keyPair = starkwareCrypto.ec.keyFromPrivate(privateKey, 'hex')
 // get the account address from the public key
@@ -141,7 +145,7 @@ const starkExAPI = new StarkExAPI({
   Use code from the above Initializing Provider here
 */
 
-// web3authProvider is web3auth.provider from above
+// web3authProvider is web3auth.connection?.ethereumProvider from above
 const privateKey = await web3authProvider.request({ method: 'private_key' })
 const keyPair = starkwareCrypto.ec.keyFromPrivate(privateKey, 'hex')
 // get the account address from the public key
@@ -177,7 +181,7 @@ const starkExAPI = new StarkExAPI({
   Use code from the above Initializing Provider here
 */
 
-// web3authProvider is web3auth.provider from above
+// web3authProvider is web3auth.connection?.ethereumProvider from above
 const privateKey = await web3authProvider.request({ method: 'private_key' })
 const keyPair = starkwareCrypto.ec.keyFromPrivate(privateKey, 'hex')
 // get the account address from the public key

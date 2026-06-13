@@ -22,28 +22,28 @@ occur on Optimism are posted and validated on Ethereum mainnet using Optimistic 
 - For more information on the Optimism network, please see the
   [official Optimism developer documentation](https://docs.optimism.io/).
 - See the [differences between the behavior of Ethereum and Optimism](https://docs.optimism.io/stack/differences).
-- See the [JSON-RPC methods specific to Optimism Bedrock](https://docs.optimism.io/builders/node-operators/json-rpc).
+- See the [JSON-RPC methods specific to Optimism Bedrock](https://docs.optimism.io/node-operators/reference/op-node-json-rpc).
 
 :::
 
 <CardList
-  items={[
-    {
-      href: "/services/reference/optimism/quickstart",
-      title: "Quickstart",
-      description: "Learn how to quickly connect and make calls to the Optimism network."
-    },
-    {
-      href: "/services/reference/optimism/json-rpc-methods",
-      title: "JSON-RPC APIs",
-      description: "View the APIs available for communicating with the Optimism network."
-    },
-    {
-      href: "/developer-tools/dashboard/get-started/create-api",
-      title: "Create an API key",
-      description: "Learn how to create and secure an API key."
-    }
-  ]}
+items={[
+{
+href: "/services/reference/optimism/quickstart",
+title: "Quickstart",
+description: "Learn how to quickly connect and make calls to the Optimism network."
+},
+{
+href: "/services/reference/optimism/json-rpc-methods",
+title: "JSON-RPC APIs",
+description: "View the APIs available for communicating with the Optimism network."
+},
+{
+href: "/developer-tools/dashboard/get-started/create-api",
+title: "Create an API key",
+description: "Learn how to create and secure an API key."
+}
+]}
 />
 
 ## Partners and privacy policies

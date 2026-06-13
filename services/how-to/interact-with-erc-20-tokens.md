@@ -28,6 +28,14 @@ An ERC-20 token must implement the following functions:
 - `approve(spender, value)` - Allows `spender` to withdraw from your account multiple times, up to the `value` amount.
 - `transferFrom(from, to, value)` - Transfers `value` amount of tokens from address `from` to address `to`.
 
+:::tip
+
+Some widely used tokens don't strictly follow ERC-20 return conventions. Don't
+assume `transfer` or `transferFrom` return a boolean value. Use a safe wrapper
+(such as [OpenZeppelin's `SafeERC20`](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol)) or explicitly handle empty return data.
+
+:::
+
 At certain times, an ERC-20 token also must emit the following events:
 
 - `Transfer(from, to, value)` - Must trigger when tokens are transferred, including zero value transfers.
@@ -39,13 +47,13 @@ View [EIP-20](https://eips.ethereum.org/EIPS/eip-20) for more details about how 
 
 Use [`eth_sendRawTransaction`](../reference/ethereum/json-rpc-methods/eth_sendrawtransaction.mdx) to send ERC-20 token transactions.
 
-The JSON-RPC format expects `eth_sendRawTransaction` to have a specific data field format that requires normalizing the `Transfer` function to a short [function selector](https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector). To do this, set the parameters for the function and run it through Ethereum’s [sha3 keccak hash](https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector):
+The JSON-RPC format expects `eth_sendRawTransaction` to have a specific data field format that requires normalizing the `transfer` function to a short [function selector](https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector). To do this, set the parameters for the function and run it through Ethereum's [sha3 keccak hash](https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector):
 
 <Tabs>
   <TabItem value="JavaScript" label="JavaScript" default>
 
 ```javascript
-web3.sha3("Transfer(address, address, uint256)")[0..4]
+web3.utils.sha3('transfer(address,uint256)').slice(0, 10)
 ```
 
   </TabItem>
@@ -92,7 +100,7 @@ Once the event logs are published, you can execute [`eth_getLogs`](../reference/
 
 :::success
 
-For example, an event ticketing service that wants to issue off-chain tickets based on crypto payments can use `eth_getLogs` to find payments to their address, and react to these events by processing some logic in their backend servers to issue tickets to users.
+For example, an event ticketing service that wants to issue offchain tickets based on crypto payments can use `eth_getLogs` to find payments to their address, and react to these events by processing some logic in their backend servers to issue tickets to users.
 
 :::
 
@@ -124,7 +132,7 @@ curl https://mainnet.infura.io/v3/<YOUR-API-KEY> \
         "0x000000000000000000000000dfbaf3e4c7496dad574a1b842bc85b402bdc298d"
       ],
       "data": "0x00000000000000000000000000000000000000000000041f900d25d6693623a6",
-      "blockNumbern": "0x91F37C"
+      "blockNumber": "0x91F37C"
     }
   ]
 }
@@ -154,13 +162,13 @@ event Approval(address indexed tokenOwner, address indexed spender, uint tokens)
 event Transfer(address indexed from, address indexed to, uint tokens);
 ```
 
-To find out which topic (event) it actually was, create the [function selector](https://docs.soliditylang.org/en/develop/abi-spec.html#function-selector) of the event and take the [sha3 keccak hash](https://docs.soliditylang.org/en/develop/abi-spec.html#function-selector) of it. Let’s try the event on line 94:
+To find out which topic (event) it actually was, create the [function selector](https://docs.soliditylang.org/en/develop/abi-spec.html#function-selector) of the event and take the [sha3 keccak hash](https://docs.soliditylang.org/en/develop/abi-spec.html#function-selector) of it. Let's try the event on line 94:
 
 <Tabs>
   <TabItem value="Example console request" label="Example console request" default>
 
 ```javascript
-web3.sha3("Approval(address,address,uint256)")
+web3.sha3('Approval(address,address,uint256)')
 ```
 
   </TabItem>
@@ -173,13 +181,13 @@ web3.sha3("Approval(address,address,uint256)")
   </TabItem>
 </Tabs>
 
-The resulting hash doesn’t match the hash provided in the initial request response. Now let’s try the event on line 95 of the contract:
+The resulting hash doesn't match the hash provided in the initial request response. Now let's try the event on line 95 of the contract:
 
 <Tabs>
   <TabItem value="Example node request" label="Example node request" default>
 
 ```javascript
-web3.sha3("Transfer(address,address,uint256)")
+web3.sha3('Transfer(address,address,uint256)')
 ```
 
   </TabItem>

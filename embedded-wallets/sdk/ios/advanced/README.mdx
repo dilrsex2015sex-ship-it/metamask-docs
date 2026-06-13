@@ -1,5 +1,5 @@
 ---
-title: Advanced Configuration
+title: Advanced configuration
 sidebar_label: Overview
 description: 'Web3Auth iOS SDK - Advanced Configuration | Embedded Wallets'
 ---
@@ -7,9 +7,9 @@ description: 'Web3Auth iOS SDK - Advanced Configuration | Embedded Wallets'
 import TabItem from '@theme/TabItem'
 import Tabs from '@theme/Tabs'
 
-The Web3Auth SDK provides extensive configuration options that allow you to customize authentication flows, UI appearance, blockchain integrations, and security features to meet your application's specific requirements.
+The Embedded Wallets SDK provides extensive configuration options that allow you to customize authentication flows, UI appearance, blockchain integrations, and security features to meet your application's specific requirements.
 
-## Configuration Structure
+## Configuration structure
 
 When setting up Web3Auth, you'll pass in the options to the constructor. This consists of:
 
@@ -18,7 +18,7 @@ import Web3Auth
 
 // focus-start
 web3Auth = Web3Auth(W3AInitParams(
-    clientId: "YOUR_WEB3AUTH_CLIENT_ID", // Pass your Web3Auth Client ID, ideally using an environment variable // Get your Client ID from Web3Auth Dashboard
+    clientId: "YOUR_WEB3AUTH_CLIENT_ID", // Pass your Web3Auth Client ID, ideally using an environment variable // Get your Client ID from MetaMask Developer Dashboard
     network: .sapphire_mainnet, // or .sapphire_devnet
     redirectUrl: "com.yourapp.bundleid://auth"
 ))
@@ -41,10 +41,10 @@ The Web3Auth Constructor takes an object with `W3AInitParams` as input.
 
 | Parameter      | Description                                                                                                                               |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `clientId`     | Your Web3Auth Client ID from the [Dashboard](https://dashboard.web3auth.io/). It's a mandatory field of type `String`.                    |
+| `clientId`     | Your Web3Auth Client ID from the [Dashboard](https://developer.metamask.io/). It's a mandatory field of type `String`.                    |
 | `network`      | Web3Auth Network: `.sapphire_mainnet`, `.sapphire_devnet`, `.mainnet`, `.cyan`, `.aqua` or `.testnet`. Mandatory field of type `Network`. |
 | `redirectUrl`  | URL that Web3Auth will redirect API responses upon successful authentication. It's a mandatory field of type `String`.                    |
-| `whiteLabel?`  | WhiteLabel options for custom UI, branding, and translations. Takes `W3AWhiteLabelData` as a value.                                       |
+| `whiteLabel?`  | Whitelabel options for custom UI, branding, and translations. Takes `W3AWhiteLabelData`` as a value.                                      |
 | `loginConfig?` | Login config for custom verifiers. Takes `[String: W3ALoginConfig]` as a value.                                                           |
 | `mfaSettings?` | Configure MFA settings for authentication. Takes `MfaSettings` as a value.                                                                |
 | `sessionTime?` | Configure session management time in seconds. Default is 86400 seconds (1 day). Max 30 days.                                              |
@@ -82,35 +82,35 @@ public struct W3AInitParams {
 </TabItem>
 </Tabs>
 
-## Session Management
+## Session management
 
 Control how long users stay authenticated and how sessions persist. The session key is stored in the device's encrypted Keychain.
 
 **Key Configuration Options:**
 
-- `sessionTime` - Session duration in seconds. Controls how long users remain authenticated before needing to log in again.
+- `sessionTime` - Session duration in seconds. Controls how long users remain authenticated before needing to sign in again.
   - Minimum: 1 second (`1`).
   - Maximum: 30 days (`86400 * 30`).
   - Default: 7 days (`86400 * 7`).
 
 ```swift
 web3Auth = Web3Auth(W3AInitParams(
-    clientId: "YOUR_WEB3AUTH_CLIENT_ID", // Pass your Web3Auth Client ID, ideally using an environment variable // Get your Client ID from Web3Auth Dashboard
+    clientId: "YOUR_WEB3AUTH_CLIENT_ID", // Pass your Web3Auth Client ID, ideally using an environment variable // Get your Client ID from MetaMask Developer Dashboard
     network: .sapphire_mainnet, // or .sapphire_devnet
     sessionTime: 86400 * 7, // 7 days (in seconds)
     redirectUrl: "com.yourapp.bundleid://auth"
 ))
 ```
 
-## Custom Authentication Methods
+## Custom authentication methods
 
-Control the login options presented to your users. For detailed configuration options and implementation examples, see the [Custom Authentication](./custom-authentication.mdx) section.
+Control the sign-in options presented to your users. For detailed configuration options and implementation examples, see the [custom authentication](./custom-authentication.mdx) section.
 
-## UI Customization
+## UI customization
 
-Create a seamless brand experience by customizing the Web3Auth Login Screens to match your application's design. For complete customization options, refer to the [Whitelabeling & UI Customization](./whitelabel.mdx) section.
+Customize the brand experience by customizing the Web3Auth Sign-in Screens to match your application's design. For complete customization options, refer to the [Whitelabeling and UI Customization](./whitelabel.mdx) section.
 
-## Multi-Factor Authentication (MFA)
+## Multi-Factor Authentication
 
 Add additional security layers to protect user accounts with two-factor authentication. For detailed configuration options and implementation examples, see the [Multi-Factor Authentication](./mfa.mdx) section.
 

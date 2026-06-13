@@ -1,6 +1,6 @@
 ---
-title: Multi Factor Authentication in PnP Unreal Engine SDK
-sidebar_label: Multi Factor Authentication
+title: Multi-factor authentication in PnP Unreal Engine SDK
+sidebar_label: Multi-factor authentication
 description: 'Web3Auth PnP Unreal Engine SDK - Multi Factor Authentication | Embedded Wallets'
 ---
 
@@ -17,7 +17,7 @@ You can set the mfaLevel within the `loginParams` to customize when mfa screen s
 
 :::caution Note
 
-If you are using default verifiers, your users may have set up MFA on other dApps that also use default Web3Auth verifiers. In this case, the MFA screen will continue to appear if the user has enabled MFA on other dApps. This is because MFA cannot be turned off once it is enabled.
+If you are using default verifiers, your users may have set up MFA on other dapps that also use default Web3Auth verifiers. In this case, the MFA screen will continue to appear if the user has enabled MFA on other dapps. This is because MFA cannot be turned off once it is enabled.
 
 :::
 
@@ -38,7 +38,11 @@ enum class FMFALevel : uint8
 
 ### Usage
 
-![Unreal Blueprint MFA Options](/img/embedded-wallets/unreal/mfa.png)
+<img
+  className="docImg"
+  src="/img/embedded-wallets/unreal/mfa.png"
+  alt="Unreal Blueprint MFA Options"
+/>
 
 ## `MFASettings`
 
@@ -112,4 +116,8 @@ struct FMfaSettings
 
 ### Usage
 
-![Unreal Blueprint MFA Settings Options](/img/embedded-wallets/unreal/unreal-mfa-settings.png)
+<img
+  className="docImg"
+  src="/img/embedded-wallets/unreal/unreal-mfa-settings.png"
+  alt="Unreal Blueprint MFA Settings Options"
+/>

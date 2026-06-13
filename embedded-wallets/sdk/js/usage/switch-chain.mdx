@@ -1,0 +1,69 @@
+---
+title: switchChain
+sidebar_label: Switch chain
+description: '@web3auth/modal Usage | Embedded Wallets'
+---
+
+import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
+
+Function to switch blockchain networks with Web3Auth.
+
+## Usage
+
+```javascript
+await web3auth.switchChain({ chainId: '0xaa36a7' })
+```
+
+## Parameters
+
+<Tabs
+  defaultValue="table"
+  values={[
+    { label: "Table", value: "table" },
+    { label: "Function Definition", value: "definition" },
+  ]}
+>
+
+<TabItem value="table">
+
+| Parameter             | Description                                                                | Type   | Required |
+| --------------------- | -------------------------------------------------------------------------- | ------ | -------- |
+| `{ chainId: string }` | Chain ID of the chain to switch to, for example, `{ chainId: "0xaa36a7" }` | Object | Yes      |
+
+</TabItem>
+
+<TabItem value="definition">
+
+```tsx
+async switchChain(params: { chainId: string }): Promise<void> {
+    if (this.status !== ADAPTER_STATUS.CONNECTED || !this.connectedAdapterName) throw WalletLoginError.notConnectedError(`No wallet is connected`);
+    return this.walletAdapters[this.connectedAdapterName].switchChain(params);
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+## Example
+
+```javascript title="switchChain.js"
+async function onConnected() {
+  const chains = web3auth.coreOptions.chains ?? []
+  const chainId = web3auth.currentChainId
+  // Update UI with chainId and available chains
+}
+
+// Initialize Web3Auth first
+await web3auth.init()
+
+// Switch to Sepolia Testnet
+try {
+  await web3auth.switchChain({ chainId: '0xaa36a7' })
+  await onConnected()
+  console.log('Successfully switched to Sepolia Testnet')
+} catch (error) {
+  console.error('Error switching chain:', error)
+}
+```

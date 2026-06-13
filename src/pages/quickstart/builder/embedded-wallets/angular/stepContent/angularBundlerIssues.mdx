@@ -1,7 +1,13 @@
-### Fix bundler issues
+### Troubleshoot bundler issues (if needed)
 
-Some web3 packages (for example, `eccrypto`) rely on Node.js modules that aren't available in the
-browser.
+`@web3auth/modal@11` on Angular needs only `zone.js` in `polyfills.ts`. Do not add `Buffer`,
+`process`, or `global` shims unless an older dependency still requires them.
 
-To resolve this, see the
-[Webpack 5 troubleshooting issues](/embedded-wallets/troubleshooting/webpack-issues#angular) page.
+See [Bundler polyfill issues](/embedded-wallets/troubleshooting/webpack-issues/) for legacy
+fallback steps.
+
+:::info
+
+If you need help, visit the [MetaMask Builder Hub](https://builder.metamask.io/).
+
+:::

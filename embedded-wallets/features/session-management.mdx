@@ -1,26 +1,45 @@
 ---
 title: Session Management
-sidebar_label: Session Management
+sidebar_label: Session management
 description: 'Session Management | Embedded Wallets'
+keywords: [session, connect and sign, token persistence, web sdk, v11]
 ---
 
-SDKs provide session management to minimize repeated logins, enhancing user experience by maintaining login state for a specified duration. This seamless experience offers several advantages, including:
+SDKs provide session management to minimize repeated logins, enhancing user experience by maintaining login state for a specified duration. This offers several advantages, including:
 
-- **User Experience:** Reduces login frequency for a smoother experience.
+- **User experience:** Reduces login frequency to reduce repeated sign-ins.
 - **Efficiency:** Session restoration is quick, occurring in milliseconds.
 - **Integration:** Easy to implement with minimal impact on user flow.
 
-### Session Key
+## Session persistence across reloads (Web SDK v11)
+
+Web SDK v11 (`@web3auth/modal` for JavaScript, React, and Vue) stores auth tokens after a successful login and restores the session when the user reloads the page.
+External wallet connections use the **connect and sign** flow by default, so users are not re-prompted for a signature after a refresh while the session is still valid.
+
+The SDK persists these tokens in client storage:
+
+| Token          | Purpose                                 |
+| -------------- | --------------------------------------- |
+| `idToken`      | Server-side identity verification       |
+| `accessToken`  | API access for authenticated requests   |
+| `refreshToken` | Renew expired sessions without re-login |
+
+On reload, the SDK reads stored tokens, validates the session, and reconnects automatically when possible.
+If the session expired or tokens are missing, the user goes through the standard login flow again.
+
+See [External wallet aggregator](/embedded-wallets/features/external-wallets/#connect-and-sign-web-sdk-v11-default) for connect-and-sign details.
+
+### Session key
 
 Upon login, a unique session key is generated. The user state is then encrypted with this session key and stored on the Web3Auth metadata server.
 
-### Secure Storage
+### Secure storage
 
-Session keys are stored securely in the client's environment (e.g., browser local storage, Android Encrypted Shared Preferences, iOS Keychain Services).
+Session keys are stored securely in the client's environment (for example, browser local storage, Android encrypted shared preferences, or iOS keychain services).
 
 ### Restoration
 
-1. **Retrieve Key:** SDK retrieves the session key from secure storage.
-2. **Server Communication:** SDK requests user state restoration from the metadata server.
+1. **Retrieve key:** SDK retrieves the session key from secure storage.
+2. **Server communication:** SDK requests user state restoration from the metadata server.
 3. **Decryption:** Encrypted user state is decrypted with the session key.
 4. **Fallback:** If no active session, user proceeds with standard login.

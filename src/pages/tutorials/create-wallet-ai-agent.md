@@ -1,8 +1,8 @@
 ---
-title: Create an AI agent using MetaMask SDK
+title: Create an AI agent using MetaMask Connect
 image: 'img/tutorials/tutorials-banners/create-wallet-ai-agent.png'
-description: Create a wallet AI agent using MetaMask SDK and Vercel's AI SDK.
-tags: [metamask sdk, AI agent, Vercel, Wagmi, Next.js, OpenAI]
+description: Create a wallet AI agent using MetaMask Connect and Vercel's AI SDK.
+tags: [MetaMask Connect, AI agent, Vercel, Wagmi, Next.js, OpenAI]
 date: May 2, 2025
 author: MetaMask Developer Relations
 discourseTopicId: 2609
@@ -12,7 +12,7 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
 This tutorial walks you through creating an AI agent dapp that can display your wallet balance and initiate transactions from your wallet, on the Linea Sepolia network.
-You will use a provided template, which sets up MetaMask SDK and [Vercel's AI SDK](https://sdk.vercel.ai/) with a [Next.js](https://nextjs.org/docs) and [Wagmi](https://wagmi.sh/) dapp.
+You will use a provided template, which sets up MetaMask Connect and [Vercel's AI SDK](https://sdk.vercel.ai/) with a [Next.js](https://nextjs.org/docs) and [Wagmi](https://wagmi.sh/) dapp.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ You will use a provided template, which sets up MetaMask SDK and [Vercel's AI SD
 
 ### 1. Set up the project
 
-1.  Clone the [`Consensys/wallet-agent`](https://github.com/Consensys/wallet-agent/tree/main) repository:
+1.  Clone the [`Consensys/wallet-agent`](#) repository:
 
     ```bash
     git clone git@github.com:Consensys/wallet-agent.git
@@ -60,7 +60,7 @@ You will use a provided template, which sets up MetaMask SDK and [Vercel's AI SD
 
 ### 2. Create the dapp interface
 
-In `app/page.tsx`, use the `useAccount`, `useConnect`, and `useDisconnect` hooks from Wagmi, along with the Wagmi [MetaMask SDK connector](https://wagmi.sh/react/api/connectors/metaMask) to create a button to connect and disconnect your MetaMask wallet.
+In `app/page.tsx`, use the `useAccount`, `useConnect`, and `useDisconnect` hooks from Wagmi, along with the Wagmi [MetaMask connector](https://wagmi.sh/react/api/connectors/metaMask) to create a button to connect and disconnect your MetaMask wallet.
 
 Use the `Chat` component to display the AI agent chat interface.
 
@@ -301,5 +301,6 @@ You can configure the AI agent to directly send the transaction using a [Viem Wa
 
 ## Resources
 
-- View the main branch of the [`Consensys/wallet-agent`](https://github.com/Consensys/wallet-agent) template for the completed implementation of this tutorial.
+<!-- - View the main branch of the [`Consensys/wallet-agent`](#) template for the completed implementation of this tutorial. -->
+
 - Watch the [live coding session](https://www.youtube.com/watch?v=ZVuOaKuAhBQ) on YouTube, in which the MetaMask DevRel team walks through creating a wallet AI agent from the initial template.

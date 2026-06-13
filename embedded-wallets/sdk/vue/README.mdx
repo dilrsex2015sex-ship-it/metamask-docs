@@ -1,52 +1,63 @@
 ---
-title: Getting Started with the Vue SDK
-sidebar_label: Getting Started
+title: Getting started with the Vue SDK
+sidebar_label: Get started
 description: 'Embedded Wallets Vue SDK (formerly Web3Auth Plug and Play)'
 ---
 
-import ExampleCards from '@theme/ExampleCards'
-import { webExamples, QUICK_START } from '@site/src/utils/example-maps'
 import TabItem from '@theme/TabItem'
 import Tabs from '@theme/Tabs'
 import SdkTroubleshootingIntro from '../_common/_sdk-troubleshooting-intro.mdx'
 
-> Embedded Wallets SDKs were previously marketed as Web3Auth Plug and Play SDKs. Package names and APIs remain Web3Auth (for example, `@web3auth/modal`).
+:::note[Naming]
+
+Embedded Wallets SDKs were previously known as Web3Auth Plug and Play SDKs. Package names and APIs remain Web3Auth (for example, `@web3auth/modal`).
+
+:::
 
 ## Overview
 
-Embedded Wallets provide a seamless authentication experience for Vue applications with social logins, external wallets, and more. Using our Vue Composables, you can easily connect users to their preferred wallets and manage authentication state.
+MetaMask Embedded Wallets SDK provides authentication for Vue applications with social logins, external wallets, and more. Our Vue Composables simplifies how you connect users to their preferred wallets and manage authentication state.
+
+:::info Migration from v9 or v10
+
+Use the [Web SDK v11 migration guide](/embedded-wallets/migration-guides/web). It includes an LLM agent prompt, a full v9/v10-to-v11 API map, and step-by-step changes for `@web3auth/modal/vue`.
+
+:::
 
 ## Requirements
 
-- This is a frontend SDK and must be used in a browser environment.
-- Basic knowledge of JavaScript and Vue.
+- This is a frontend SDK and must be used in a browser environment
+- Node.js 22+ and npm 10+
+- Basic knowledge of JavaScript and Vue
+
+## Prerequisites
+
+- Set up your project on the [Embedded Wallets dashboard](https://developer.metamask.io/)
+
+:::tip
+
+See the [dashboard setup](../../dashboard/README.mdx) guide to learn more.
+
+:::
 
 ## Installation
 
 Install the Web3Auth Modal SDK using npm or yarn:
 
 ```bash npm2yarn
-npm install --save @web3auth/modal
+npm install --save @web3auth/modal @wagmi/vue @tanstack/vue-query
 ```
-
-## Setup
-
-:::info
-
-Prerequisites Before you start, make sure you have registered on the [**Web3Auth Dashboard**](https://dashboard.web3auth.io/) and have set up your project. You can look into the [Dashboard Setup](../../dashboard/README.mdx) guide to learn more.
-
-:::
 
 ### 1. Configuration
 
-Create a configuration file for Web3Auth. This file will contain your Web3Auth Client ID and Network details from the [Web3Auth Dashboard](https://dashboard.web3auth.io/).
+Create a configuration file for Web3Auth. This file will contain your Web3Auth Client ID and Network details from the [Embedded Wallets dashboard](https://developer.metamask.io/).
 
 ```ts title="web3authContext.ts"
 import { type Web3AuthContextConfig } from '@web3auth/modal/vue'
 import { WEB3AUTH_NETWORK, type Web3AuthOptions } from '@web3auth/modal'
 
 const web3AuthOptions: Web3AuthOptions = {
-  clientId: 'YOUR_WEB3AUTH_CLIENT_ID', // Pass your Web3Auth Client ID, ideally using an environment variable // Get your Client ID from Web3Auth Dashboard
+  clientId: 'YOUR_WEB3AUTH_CLIENT_ID', // Pass your Web3Auth Client ID, ideally using an environment variable // Get your Client ID from MetaMask Developer Dashboard
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET, // or WEB3AUTH_NETWORK.SAPPHIRE_DEVNET
 }
 
@@ -57,42 +68,51 @@ const web3AuthContextConfig: Web3AuthContextConfig = {
 export default web3AuthContextConfig
 ```
 
-### 2. Setup Web3Auth Provider
+### 2. Set up providers
 
-In your main component (e.g. `App.vue`), import the `Web3AuthProvider` component and wrap your application with it:
+Register Vue Query in `main.ts` when you use Wagmi:
+
+```ts title="main.ts"
+import { VueQueryPlugin } from '@tanstack/vue-query'
+import { createApp } from 'vue'
+import App from './App.vue'
+import './style.css'
+
+createApp(App).use(VueQueryPlugin).mount('#app')
+```
+
+In `App.vue`, wrap your app with `Web3AuthProvider` and the Embedded Wallets `WagmiProvider`:
 
 ```html title="App.vue"
 <script setup lang="ts">
   import Home from './Home.vue'
-  // focus-next-line
   import { Web3AuthProvider } from '@web3auth/modal/vue'
+  import { WagmiProvider } from '@web3auth/modal/vue/wagmi'
   import web3AuthContextConfig from './web3authContext'
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col">
-    <!-- focus-start -->
-    <Web3AuthProvider :config="web3AuthContextConfig">
+  <Web3AuthProvider :config="web3AuthContextConfig">
+    <WagmiProvider>
       <Home />
-    </Web3AuthProvider>
-    <!-- focus-end -->
-  </div>
+    </WagmiProvider>
+  </Web3AuthProvider>
 </template>
 ```
 
-## Advanced Configuration
+## Advanced configuration
 
-The Web3Auth Modal SDK offers a rich set of advanced configuration options:
+The Embedded Wallets Modal SDK offers a rich set of advanced configuration options:
 
-- **[Smart Accounts](./advanced/smart-accounts.mdx)**: Configure account abstraction parameters.
-- **[Custom Authentication](./advanced/custom-authentication.mdx)**: Define authentication methods.
-- **[Whitelabeling & UI Customization](./advanced/whitelabel.mdx)**: Personalize the modal's appearance.
-- **[Multi-Factor Authentication (MFA)](./advanced/mfa.mdx)**: Set up and manage MFA.
-- **[Wallet Services](./advanced/wallet-services.mdx)**: Integrate additional wallet services.
+- **[Smart accounts](./advanced/smart-accounts.mdx):** Configure account abstraction parameters.
+- **[Custom authentication](./advanced/custom-authentication.mdx):** Define authentication methods.
+- **[Whitelabeling and UI customization](./advanced/whitelabel.mdx):** Personalize the modal's appearance.
+- **[Multi-Factor Authentication (MFA)](./advanced/mfa.mdx):** Set up and manage MFA.
+- **[Wallet Services](./advanced/wallet-services.mdx):** Integrate additional Wallet Services.
 
 :::tip
 
-Head over to the [**Advanced Configuration**](./advanced/README.mdx) section to learn more about each configuration option.
+See the [advanced configuration](./advanced/README.mdx) section to learn more about each configuration option.
 
 :::
 
@@ -177,20 +197,38 @@ const web3AuthContextConfig: Web3AuthContextConfig = {
 
 </Tabs>
 
-## Blockchain Integration
+## Blockchain integration
 
 Web3Auth is blockchain agnostic, enabling integration with any blockchain network. Out of the box, Web3Auth offers robust support for both **Solana** and **Ethereum**, each with dedicated Vue composables.
 
-### Solana Integration
+### Solana integration
 
-Solana composables are included natively within the `@web3auth/modal` package. No additional setup is required—simply use the provided composables to interact with Solana networks.
+Solana composables are included natively within the `@web3auth/modal` package. Install
+[`@solana/kit`](https://www.npmjs.com/package/@solana/kit), [`@solana-program/system`](https://www.npmjs.com/package/@solana-program/system), and
+then wrap your app with `SolanaProvider`:
 
-For detailed usage and examples, visit the [**Solana Composables**](./solana-composables/README.mdx) section.
+```html title="App.vue"
+<script setup lang="ts">
+  import { Web3AuthProvider } from '@web3auth/modal/vue'
+  import { SolanaProvider } from '@web3auth/modal/vue/solana'
+  import web3AuthContextConfig from './web3authContext'
+</script>
 
-### Ethereum Integration
+<template>
+  <Web3AuthProvider :config="web3AuthContextConfig">
+    <SolanaProvider>
+      <Home />
+    </SolanaProvider>
+  </Web3AuthProvider>
+</template>
+```
 
-Ethereum composables are provided through the popular `wagmi` library, which works seamlessly with Web3Auth. This allows you to leverage a wide range of Ethereum composables for account management, transactions, and more.
+Use composables from `@web3auth/modal/vue/solana`.
 
-For implementation details and examples, refer to the [**Ethereum Composables**](./ethereum-composables.mdx) section.
+### Ethereum integration
+
+Ethereum composables are provided through [`@wagmi/vue`](https://wagmi.sh/vue), which works with Embedded Wallets. This allows you to leverage a wide range of Ethereum composables for account management, transactions, and more.
+
+For implementation details and examples, refer to the [Ethereum Composables](./ethereum-composables.mdx) section.
 
 <SdkTroubleshootingIntro />

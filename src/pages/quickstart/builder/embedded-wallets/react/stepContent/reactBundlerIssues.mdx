@@ -1,13 +1,12 @@
-### Troubleshooting
+### Troubleshoot bundler issues (if needed)
 
-When using web3 libraries in React, you may encounter build errors. This happens because some packages
-(for example, `eccrypto`) depend on Node.js modules that aren't available in the browser build
-environment.
+`@web3auth/modal@11` runs on Vite without extra polyfills in most projects. Build your app first;
+only add polyfills if the bundler reports missing Node.js modules.
 
-To resolve these errors, see the [Vite issues](/embedded-wallets/troubleshooting/vite-issues/) page.
+See [Bundler polyfill issues](/embedded-wallets/troubleshooting/vite-issues/) for fallback steps.
 
 :::info
 
-If you need help, visit the [**Web3Auth community**](https://web3auth.io/community/c/help-pnp/pnp-web/7).
+If you need help, visit the [MetaMask Builder Hub](https://builder.metamask.io/).
 
 :::
