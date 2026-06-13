@@ -39,6 +39,9 @@ export default function Layout(props: Props): ReactNode {
 
       {subNavConfig && <SubNavBar config={subNavConfig} />}
 
+      {/* Vexo Analytics Script Injection */}
+      <script src="https://www.vexo.co/analytics.js" defer></script>
+
       <div
         id={SkipToContentFallbackId}
         className={clsx(ThemeClassNames.wrapper.main, styles.mainWrapper, wrapperClassName)}>
