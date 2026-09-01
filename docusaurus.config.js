@@ -233,7 +233,11 @@ const config = {
       { rootDir: '.integrationBuilderCache', globalDataKeys: ['EW_AI_SKILL_MD'] },
     ],
     './src/plugins/docusaurus-plugin-tutorials',
-    'docusaurus-plugin-sass',
+    ['docusaurus-plugin-sass', {
+      sassOptions: {
+        silenceDeprecations: ['legacy-js-api', 'import'],
+      },
+    }],
     './src/plugins/mm-scss-utils',
     './src/plugins/plugin-snaps-docs.ts',
     [
