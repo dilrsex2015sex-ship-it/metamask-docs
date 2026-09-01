@@ -1,7 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-import fs from 'fs'
+const fs = require('fs')
 require('dotenv').config()
 const { themes } = require('prism-react-renderer')
 const { REF_ALLOW_LOGIN_PATH } = require('./src/lib/constants')
